@@ -2,7 +2,7 @@
 //  WeakProxy.m
 //  ObjcUtils
 //
-//  Created by Vasily Zaytsev on 24.08.2021.
+//  Created by Vasiliy Zaytsev on 24.08.2021.
 //
 
 #import "WeakProxy.h"

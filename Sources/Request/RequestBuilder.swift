@@ -2,7 +2,7 @@
 //  RequestBuilder.swift
 //  NetworkServiceDemo
 //
-//  Created by Vasily Zaytsev on 02.09.2021.
+//  Created by Vasiliy Zaytsev on 02.09.2021.
 //
 
 import Foundation

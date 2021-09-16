@@ -2,7 +2,7 @@
 //  HostProtocol.swift
 //  NetworkService
 //
-//  Created by Vasily Zaytsev on 22.08.2021.
+//  Created by Vasiliy Zaytsev on 22.08.2021.
 //
 
 import Foundation
