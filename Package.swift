@@ -21,7 +21,8 @@ let package = Package(
             name: "Networking",
             dependencies: ["ObjcUtils"],
             path: "Sources",
-            exclude: ["ObjcUtils"]
+            exclude: ["ObjcUtils"],
+            swiftSettings: [.define("OBJC_UTILS_IS_MODULE")]
         ),
         .testTarget(
             name: "NetworkingTests",

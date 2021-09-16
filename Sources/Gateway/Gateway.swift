@@ -6,7 +6,10 @@
 //
 
 import Foundation
+
+#if OBJC_UTILS_IS_MODULE
 import ObjcUtils
+#endif
 
 public final class HTTPGateway: NSObject, HTTPGatewayProtocol {
     public let session: URLSession
