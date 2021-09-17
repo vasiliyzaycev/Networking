@@ -2,7 +2,13 @@
 //  Networking.h
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 09.09.2021.
+//  Created by Vasiliy Zaytsev on 16.09.2021.
 //
 
-#import "WeakProxy.h"
+#import <Foundation/Foundation.h>
+
+//! Project version number for Networking.
+FOUNDATION_EXPORT double NetworkingVersionNumber;
+
+//! Project version string for Networking.
+FOUNDATION_EXPORT const unsigned char NetworkingVersionString[];

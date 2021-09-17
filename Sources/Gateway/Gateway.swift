@@ -5,9 +5,7 @@
 //  Created by Vasiliy Zaytsev on 23.08.2021.
 //
 
-import Foundation
-
-#if OBJC_UTILS_IS_MODULE
+#if canImport(ObjcUtils)
 import ObjcUtils
 #endif
 
