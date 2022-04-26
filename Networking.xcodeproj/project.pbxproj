@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22000A26F531E7007A2A57 /* libObjcUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE22000826F531A0007A2A57 /* libObjcUtils.a */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
 		FE22005226F55007007A2A57 /* Dictionary+URLQueryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003526F55006007A2A57 /* Dictionary+URLQueryConvertible.swift */; };
@@ -15,19 +16,19 @@
 		FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003826F55006007A2A57 /* URLSessionDownloadTask+Extensions.swift */; };
 		FE22005626F55007007A2A57 /* URLSessionTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003926F55006007A2A57 /* URLSessionTask+Extensions.swift */; };
 		FE22005726F55007007A2A57 /* Dictionary+Merging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003A26F55006007A2A57 /* Dictionary+Merging.swift */; };
-		FE22005826F55007007A2A57 /* Gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003C26F55006007A2A57 /* Gateway.swift */; };
+		FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003C26F55006007A2A57 /* HTTPGateway.swift */; };
 		FE22005926F55007007A2A57 /* GatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003D26F55006007A2A57 /* GatewayError.swift */; };
-		FE22005A26F55007007A2A57 /* GatewayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003E26F55006007A2A57 /* GatewayProtocol.swift */; };
-		FE22005B26F55007007A2A57 /* BaseHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004026F55006007A2A57 /* BaseHost.swift */; };
-		FE22005C26F55007007A2A57 /* HostProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004126F55006007A2A57 /* HostProtocol.swift */; };
+		FE22005A26F55007007A2A57 /* Gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003E26F55006007A2A57 /* Gateway.swift */; };
+		FE22005B26F55007007A2A57 /* HTTPHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004026F55006007A2A57 /* HTTPHost.swift */; };
+		FE22005C26F55007007A2A57 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004126F55006007A2A57 /* Host.swift */; };
 		FE22005D26F55007007A2A57 /* RequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004326F55007007A2A57 /* RequestOptions.swift */; };
 		FE22005E26F55007007A2A57 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004426F55007007A2A57 /* RequestBuilder.swift */; };
-		FE22005F26F55007007A2A57 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004526F55007007A2A57 /* RequestProtocol.swift */; };
+		FE22005F26F55007007A2A57 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004526F55007007A2A57 /* Request.swift */; };
 		FE22006026F55007007A2A57 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004626F55007007A2A57 /* Method.swift */; };
-		FE22006126F55007007A2A57 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004726F55007007A2A57 /* Request.swift */; };
-		FE22006226F55007007A2A57 /* ResponseDecoderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004826F55007007A2A57 /* ResponseDecoderProtocol.swift */; };
-		FE22006326F55007007A2A57 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004A26F55007007A2A57 /* TaskFactory.swift */; };
-		FE22006426F55007007A2A57 /* TaskFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004B26F55007007A2A57 /* TaskFactoryProtocol.swift */; };
+		FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004726F55007007A2A57 /* HTTPRequest.swift */; };
+		FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004826F55007007A2A57 /* ResponseDecoder.swift */; };
+		FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */; };
+		FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004B26F55007007A2A57 /* TaskFactory.swift */; };
 		FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004D26F55007007A2A57 /* AssociatedObject.swift */; };
 		FE22006626F55007007A2A57 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004F26F55007007A2A57 /* Tracker.swift */; };
 		FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22005026F55007007A2A57 /* TrackerProtocol.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22000326F531A0007A2A57 /* ObjcUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ObjcUtils.xcodeproj; path = Sources/ObjcUtils/ObjcUtils.xcodeproj; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
 		FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Extension.swift"; sourceTree = "<group>"; };
@@ -63,19 +65,19 @@
 		FE22003826F55006007A2A57 /* URLSessionDownloadTask+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSessionDownloadTask+Extensions.swift"; sourceTree = "<group>"; };
 		FE22003926F55006007A2A57 /* URLSessionTask+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSessionTask+Extensions.swift"; sourceTree = "<group>"; };
 		FE22003A26F55006007A2A57 /* Dictionary+Merging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Merging.swift"; sourceTree = "<group>"; };
-		FE22003C26F55006007A2A57 /* Gateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateway.swift; sourceTree = "<group>"; };
+		FE22003C26F55006007A2A57 /* HTTPGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPGateway.swift; sourceTree = "<group>"; };
 		FE22003D26F55006007A2A57 /* GatewayError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayError.swift; sourceTree = "<group>"; };
-		FE22003E26F55006007A2A57 /* GatewayProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayProtocol.swift; sourceTree = "<group>"; };
-		FE22004026F55006007A2A57 /* BaseHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseHost.swift; sourceTree = "<group>"; };
-		FE22004126F55006007A2A57 /* HostProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostProtocol.swift; sourceTree = "<group>"; };
+		FE22003E26F55006007A2A57 /* Gateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateway.swift; sourceTree = "<group>"; };
+		FE22004026F55006007A2A57 /* HTTPHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHost.swift; sourceTree = "<group>"; };
+		FE22004126F55006007A2A57 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		FE22004326F55007007A2A57 /* RequestOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestOptions.swift; sourceTree = "<group>"; };
 		FE22004426F55007007A2A57 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
-		FE22004526F55007007A2A57 /* RequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
+		FE22004526F55007007A2A57 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FE22004626F55007007A2A57 /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
-		FE22004726F55007007A2A57 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		FE22004826F55007007A2A57 /* ResponseDecoderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDecoderProtocol.swift; sourceTree = "<group>"; };
-		FE22004A26F55007007A2A57 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
-		FE22004B26F55007007A2A57 /* TaskFactoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactoryProtocol.swift; sourceTree = "<group>"; };
+		FE22004726F55007007A2A57 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		FE22004826F55007007A2A57 /* ResponseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
+		FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTaskFactory.swift; sourceTree = "<group>"; };
+		FE22004B26F55007007A2A57 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
 		FE22004D26F55007007A2A57 /* AssociatedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObject.swift; sourceTree = "<group>"; };
 		FE22004F26F55007007A2A57 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		FE22005026F55007007A2A57 /* TrackerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerProtocol.swift; sourceTree = "<group>"; };
@@ -154,9 +156,9 @@
 		FE22003B26F55006007A2A57 /* Gateway */ = {
 			isa = PBXGroup;
 			children = (
-				FE22003C26F55006007A2A57 /* Gateway.swift */,
+				FE22003E26F55006007A2A57 /* Gateway.swift */,
 				FE22003D26F55006007A2A57 /* GatewayError.swift */,
-				FE22003E26F55006007A2A57 /* GatewayProtocol.swift */,
+				FE22003C26F55006007A2A57 /* HTTPGateway.swift */,
 			);
 			name = Gateway;
 			path = Sources/Gateway;
@@ -165,8 +167,8 @@
 		FE22003F26F55006007A2A57 /* Host */ = {
 			isa = PBXGroup;
 			children = (
-				FE22004026F55006007A2A57 /* BaseHost.swift */,
-				FE22004126F55006007A2A57 /* HostProtocol.swift */,
+				FE22004126F55006007A2A57 /* Host.swift */,
+				FE22004026F55006007A2A57 /* HTTPHost.swift */,
 			);
 			name = Host;
 			path = Sources/Host;
@@ -175,12 +177,13 @@
 		FE22004226F55007007A2A57 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				FE22004526F55007007A2A57 /* Request.swift */,
 				FE22004326F55007007A2A57 /* RequestOptions.swift */,
 				FE22004426F55007007A2A57 /* RequestBuilder.swift */,
-				FE22004526F55007007A2A57 /* RequestProtocol.swift */,
 				FE22004626F55007007A2A57 /* Method.swift */,
-				FE22004726F55007007A2A57 /* Request.swift */,
-				FE22004826F55007007A2A57 /* ResponseDecoderProtocol.swift */,
+				FE22004726F55007007A2A57 /* HTTPRequest.swift */,
+				BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */,
+				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
 			);
 			name = Request;
 			path = Sources/Request;
@@ -189,8 +192,8 @@
 		FE22004926F55007007A2A57 /* TaskFactory */ = {
 			isa = PBXGroup;
 			children = (
-				FE22004A26F55007007A2A57 /* TaskFactory.swift */,
-				FE22004B26F55007007A2A57 /* TaskFactoryProtocol.swift */,
+				FE22004B26F55007007A2A57 /* TaskFactory.swift */,
+				FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */,
 			);
 			name = TaskFactory;
 			path = Sources/TaskFactory;
@@ -262,6 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE22FFB326F3E00F007A2A57 /* Build configuration list for PBXNativeTarget "Networking" */;
 			buildPhases = (
+				BE788A3428180EE700BFE0B4 /* ShellScript */,
 				FE22FF9A26F3E00F007A2A57 /* Headers */,
 				FE22FF9B26F3E00F007A2A57 /* Sources */,
 				FE22FF9C26F3E00F007A2A57 /* Frameworks */,
@@ -364,31 +368,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BE788A3428180EE700BFE0B4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --quiet\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FE22FF9B26F3E00F007A2A57 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE22005B26F55007007A2A57 /* BaseHost.swift in Sources */,
-				FE22005C26F55007007A2A57 /* HostProtocol.swift in Sources */,
+				FE22005B26F55007007A2A57 /* HTTPHost.swift in Sources */,
+				FE22005C26F55007007A2A57 /* Host.swift in Sources */,
 				FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */,
 				FE22005226F55007007A2A57 /* Dictionary+URLQueryConvertible.swift in Sources */,
 				FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */,
-				FE22005826F55007007A2A57 /* Gateway.swift in Sources */,
+				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				FE22006626F55007007A2A57 /* Tracker.swift in Sources */,
-				FE22006426F55007007A2A57 /* TaskFactoryProtocol.swift in Sources */,
+				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
 				FE22005D26F55007007A2A57 /* RequestOptions.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
-				FE22006126F55007007A2A57 /* Request.swift in Sources */,
+				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
 				FE22005E26F55007007A2A57 /* RequestBuilder.swift in Sources */,
 				FE22006026F55007007A2A57 /* Method.swift in Sources */,
 				FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */,
 				FE22005626F55007007A2A57 /* URLSessionTask+Extensions.swift in Sources */,
-				FE22006226F55007007A2A57 /* ResponseDecoderProtocol.swift in Sources */,
-				FE22005F26F55007007A2A57 /* RequestProtocol.swift in Sources */,
-				FE22006326F55007007A2A57 /* TaskFactory.swift in Sources */,
+				FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */,
+				FE22005F26F55007007A2A57 /* Request.swift in Sources */,
+				FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */,
+				BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */,
 				FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */,
-				FE22005A26F55007007A2A57 /* GatewayProtocol.swift in Sources */,
+				FE22005A26F55007007A2A57 /* Gateway.swift in Sources */,
 				FE22005726F55007007A2A57 /* Dictionary+Merging.swift in Sources */,
 				FE22005326F55007007A2A57 /* URLSession+Extension.swift in Sources */,
 				FE22005926F55007007A2A57 /* GatewayError.swift in Sources */,
