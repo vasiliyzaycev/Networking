@@ -112,6 +112,13 @@ public final class HTTPRequestBuilder<Value> {
   }
 }
 
+public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
+public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
+public typealias HTTPDataHandler<Value> = (Data) throws -> Value
+public typealias HTTPOptionalDataHandler<Value> = (Data?) throws -> Value
+public typealias HTTPCustomResponseHandler<Value> =
+  (HTTPResponseHandler<Value>, HTTPResponse) throws -> Value
+
 private extension HTTPRequestBuilder {
   private func createResponseHandler() -> HTTPResponseHandler<Value> {
     let metadataHandler = createMetadataHandler()
@@ -155,10 +162,3 @@ private extension HTTPRequestBuilder {
     }
   }
 }
-
-public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
-public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
-public typealias HTTPDataHandler<Value> = (Data) throws -> Value
-public typealias HTTPOptionalDataHandler<Value> = (Data?) throws -> Value
-public typealias HTTPCustomResponseHandler<Value> =
-(HTTPResponseHandler<Value>, HTTPResponse) throws -> Value

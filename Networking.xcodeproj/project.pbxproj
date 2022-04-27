@@ -21,10 +21,10 @@
 		FE22005A26F55007007A2A57 /* Gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003E26F55006007A2A57 /* Gateway.swift */; };
 		FE22005B26F55007007A2A57 /* HTTPHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004026F55006007A2A57 /* HTTPHost.swift */; };
 		FE22005C26F55007007A2A57 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004126F55006007A2A57 /* Host.swift */; };
-		FE22005D26F55007007A2A57 /* RequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004326F55007007A2A57 /* RequestOptions.swift */; };
-		FE22005E26F55007007A2A57 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004426F55007007A2A57 /* RequestBuilder.swift */; };
+		FE22005D26F55007007A2A57 /* HTTPRequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */; };
+		FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */; };
 		FE22005F26F55007007A2A57 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004526F55007007A2A57 /* Request.swift */; };
-		FE22006026F55007007A2A57 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004626F55007007A2A57 /* Method.swift */; };
+		FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004626F55007007A2A57 /* HTTPMethod.swift */; };
 		FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004726F55007007A2A57 /* HTTPRequest.swift */; };
 		FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004826F55007007A2A57 /* ResponseDecoder.swift */; };
 		FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */; };
@@ -70,10 +70,10 @@
 		FE22003E26F55006007A2A57 /* Gateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateway.swift; sourceTree = "<group>"; };
 		FE22004026F55006007A2A57 /* HTTPHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHost.swift; sourceTree = "<group>"; };
 		FE22004126F55006007A2A57 /* Host.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
-		FE22004326F55007007A2A57 /* RequestOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestOptions.swift; sourceTree = "<group>"; };
-		FE22004426F55007007A2A57 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestOptions.swift; sourceTree = "<group>"; };
+		FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestBuilder.swift; sourceTree = "<group>"; };
 		FE22004526F55007007A2A57 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		FE22004626F55007007A2A57 /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		FE22004626F55007007A2A57 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		FE22004726F55007007A2A57 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		FE22004826F55007007A2A57 /* ResponseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
 		FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTaskFactory.swift; sourceTree = "<group>"; };
@@ -178,12 +178,12 @@
 			isa = PBXGroup;
 			children = (
 				FE22004526F55007007A2A57 /* Request.swift */,
-				FE22004326F55007007A2A57 /* RequestOptions.swift */,
-				FE22004426F55007007A2A57 /* RequestBuilder.swift */,
-				FE22004626F55007007A2A57 /* Method.swift */,
+				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
+				FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */,
+				FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */,
+				FE22004626F55007007A2A57 /* HTTPMethod.swift */,
 				FE22004726F55007007A2A57 /* HTTPRequest.swift */,
 				BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */,
-				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
 			);
 			name = Request;
 			path = Sources/Request;
@@ -401,11 +401,11 @@
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				FE22006626F55007007A2A57 /* Tracker.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
-				FE22005D26F55007007A2A57 /* RequestOptions.swift in Sources */,
+				FE22005D26F55007007A2A57 /* HTTPRequestOptions.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
-				FE22005E26F55007007A2A57 /* RequestBuilder.swift in Sources */,
-				FE22006026F55007007A2A57 /* Method.swift in Sources */,
+				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
+				FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */,
 				FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */,
 				FE22005626F55007007A2A57 /* URLSessionTask+Extensions.swift in Sources */,
 				FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */,

@@ -82,7 +82,7 @@ public final class HTTPGateway: NSObject, Gateway {
     }
   }
 
-  //TODO: support multiple invalidation
+  // TODO: support multiple invalidation
   public func invalidate(forced: Bool, complitionHandler: ((Error?) -> Void)?) {
     session.invalidateHandler = complitionHandler
     if forced {
@@ -96,7 +96,7 @@ public final class HTTPGateway: NSObject, Gateway {
 extension WeakProxy: URLSessionDelegate {}
 
 extension HTTPGateway: URLSessionDelegate {
-  //TODO: support multiple invalidation
+  // TODO: support multiple invalidation
   public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     session.invalidateHandler?(error)
   }
