@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Networking",
-    platforms: [.iOS(.v12)],
+    platforms: [.iOS(.v13)],
     products: [
         .library(
             name: "Networking",
@@ -13,18 +13,12 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ObjcUtils",
-            path: "Sources/ObjcUtils",
-            cSettings: [.headerSearchPath("Include")]
-        ),
-        .target(
             name: "Networking",
-            dependencies: ["ObjcUtils"],
-            path: "Sources",
-            exclude: ["ObjcUtils"]
+            path: "Sources"
         ),
         .testTarget(
             name: "NetworkingTests",
-            dependencies: ["Networking"])
+            dependencies: ["Networking"]
+        )
     ]
 )

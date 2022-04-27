@@ -5,15 +5,13 @@
 //  Created by Vasiliy Zaytsev on 23.08.2021.
 //
 
-#if canImport(ObjcUtils)
-import ObjcUtils
-#endif
+import Foundation
 
 public final class HTTPGateway: NSObject, Gateway {
   public let session: URLSession
 
   private let options: HTTPRequestOptions?
-  private let proxy = WeakProxy.create()
+  private let proxy = WeakProxy()
 
   public init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,

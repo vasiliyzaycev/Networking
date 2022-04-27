@@ -1,6 +1,0 @@
-/* module.modulemap */
-
-module ObjcUtils {
-    umbrella header "ObjcUtils.h"
-    export *
-}
