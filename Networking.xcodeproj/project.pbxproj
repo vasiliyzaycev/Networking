@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE100A8E281ACF16002277C9 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A8D281ACF16002277C9 /* HTTPResponse.swift */; };
-		BE100A96281AD368002277C9 /* HTTPResponseOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */; };
+		BE100A96281AD368002277C9 /* HTTPSimulatedResponseOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A95281AD368002277C9 /* HTTPSimulatedResponseOptions.swift */; };
 		BE100A9A281AEFD3002277C9 /* HTTPOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A99281AEFD3002277C9 /* HTTPOptions.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
@@ -52,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		BE100A8D281ACF16002277C9 /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
-		BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponseOptions.swift; sourceTree = "<group>"; };
+		BE100A95281AD368002277C9 /* HTTPSimulatedResponseOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSimulatedResponseOptions.swift; sourceTree = "<group>"; };
 		BE100A99281AEFD3002277C9 /* HTTPOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPOptions.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			children = (
 				BE100A99281AEFD3002277C9 /* HTTPOptions.swift */,
 				FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */,
-				BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */,
+				BE100A95281AD368002277C9 /* HTTPSimulatedResponseOptions.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -400,7 +400,7 @@
 				FE22005D26F55007007A2A57 /* HTTPRequestOptions.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
-				BE100A96281AD368002277C9 /* HTTPResponseOptions.swift in Sources */,
+				BE100A96281AD368002277C9 /* HTTPSimulatedResponseOptions.swift in Sources */,
 				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
 				FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */,
 				FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */,
