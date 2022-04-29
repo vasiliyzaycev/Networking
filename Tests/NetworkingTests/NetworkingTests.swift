@@ -89,7 +89,7 @@ class NetworkingTests: XCTestCase {
 
     host.push(
       request: request,
-      options: HTTPRequestOptions(urlPath: "1")
+      requestOptions: .init(urlPath: "1")
     ) { result in
       switch result {
       case .success(let response):

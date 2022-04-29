@@ -10,13 +10,13 @@ import Foundation
 public final class HTTPHost: Host {
   private let baseURL: URL
   private let gateway: Gateway
-  private let options: HTTPRequestOptions?
+  private let options: HTTPOptions?
   private let tracker: TrackerProtocol?
 
   public init(
     baseURL: URL,
     gateway: Gateway,
-    options: HTTPRequestOptions? = nil,
+    options: HTTPOptions? = nil,
     tracker: TrackerProtocol? = nil
   ) {
     self.baseURL = baseURL
@@ -28,15 +28,7 @@ public final class HTTPHost: Host {
   @discardableResult
   public func push<Value>(
     request: HTTPRequest<Value>,
-    complitionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask {
-    push(request: request, options: nil, complitionHandler: complitionHandler)
-  }
-
-  @discardableResult
-  public func push<Value>(
-    request: HTTPRequest<Value>,
-    options extraOptions: HTTPRequestOptions?,
+    options extraOptions: HTTPOptions?,
     complitionHandler: @escaping (Result<Value, Error>) -> Void
   ) -> CancelableTask {
     gateway.push(

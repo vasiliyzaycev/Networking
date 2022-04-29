@@ -10,12 +10,12 @@ import Foundation
 public final class HTTPGateway: NSObject, Gateway {
   public let session: URLSession
 
-  private let options: HTTPRequestOptions?
+  private let options: HTTPOptions?
   private let proxy = WeakProxy()
 
   public init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,
-    options: HTTPRequestOptions? = nil,
+    options: HTTPOptions? = nil,
     queue: OperationQueue = .main
   ) {
     self.options = options
@@ -28,8 +28,8 @@ public final class HTTPGateway: NSObject, Gateway {
   public func push(
     request: Request,
     hostURL: URL,
-    hostOptions: HTTPRequestOptions?,
-    extraOptions: HTTPRequestOptions?,
+    hostOptions: HTTPOptions?,
+    extraOptions: HTTPOptions?,
     complitionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
   ) -> CancelableTask {
     let combinedOptions = combineOptions(
@@ -43,13 +43,13 @@ public final class HTTPGateway: NSObject, Gateway {
         request: createURLRequest(
           hostURL: hostURL,
           request: request,
-          options: combinedOptions
+          options: combinedOptions?.requestOptions
         ),
         gateway: self
       )
       var responseData = Data()
       sessionTask.allowUntrustedSSLCertificates =
-      hostOptions?.allowUntrustedSSLCertificates ?? false
+      hostOptions?.requestOptions?.allowUntrustedSSLCertificates ?? false
       sessionTask.completionHandler = { [weak sessionTask] error in
         guard let sessionTask = sessionTask else { return }
         let responseURL = sessionTask.originalRequest?.url ?? hostURL
@@ -219,14 +219,14 @@ extension HTTPGateway: URLSessionDownloadDelegate {
 
 private extension HTTPGateway {
   private func combineOptions(
-    gatewayOptions: HTTPRequestOptions?,
-    hostOptions: HTTPRequestOptions?,
-    extraOptions: HTTPRequestOptions?,
+    gatewayOptions: HTTPOptions?,
+    hostOptions: HTTPOptions?,
+    extraOptions: HTTPOptions?,
     requestOptions: HTTPRequestOptions?
-  ) -> HTTPRequestOptions? {
-    var result = HTTPRequestOptions.merge(gatewayOptions, with: hostOptions)
-    result = HTTPRequestOptions.merge(result, with: requestOptions)
-    result = HTTPRequestOptions.merge(result, with: extraOptions)
+  ) -> HTTPOptions? {
+    var result = HTTPOptions.merge(gatewayOptions, with: hostOptions)
+    result = HTTPOptions.merge(result, with: requestOptions)
+    result = HTTPOptions.merge(result, with: extraOptions)
     return result
   }
 

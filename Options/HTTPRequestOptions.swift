@@ -38,8 +38,10 @@ public struct HTTPRequestOptions {
     guard let source = source else { return target }
     return source.merge(with: target)
   }
+}
 
-  public func merge(with options: HTTPRequestOptions?) -> HTTPRequestOptions {
+private extension HTTPRequestOptions {
+  private func merge(with options: HTTPRequestOptions?) -> HTTPRequestOptions {
     guard let options = options else { return self }
     return HTTPRequestOptions(
       urlPath: mergeURLPaths(with: options.urlPath),
@@ -51,9 +53,7 @@ public struct HTTPRequestOptions {
         options.allowUntrustedSSLCertificates ?? allowUntrustedSSLCertificates
     )
   }
-}
 
-private extension HTTPRequestOptions {
   private func mergeURLPaths(with targetURLPath: String?) -> String? {
     let slashCharacter = CharacterSet(charactersIn: "/")
     let sourceURLPath = urlPath?.trimmingCharacters(in: slashCharacter)

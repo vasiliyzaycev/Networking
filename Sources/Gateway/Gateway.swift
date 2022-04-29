@@ -14,17 +14,12 @@ public protocol Gateway {
   func push(
     request: Request,
     hostURL: URL,
-    hostOptions: HTTPRequestOptions?,
-    extraOptions: HTTPRequestOptions?,
+    hostOptions: HTTPOptions?,
+    extraOptions: HTTPOptions?,
     complitionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
   ) -> CancelableTask
 
   func invalidate(forced: Bool, complitionHandler: ((Error?) -> Void)?)
-}
-
-public struct HTTPResponse {
-  public let data: Data?
-  public let metadata: HTTPURLResponse
 }
 
 public struct CancelableTask {

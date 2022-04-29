@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE100A8E281ACF16002277C9 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A8D281ACF16002277C9 /* HTTPResponse.swift */; };
+		BE100A96281AD368002277C9 /* HTTPResponseOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */; };
+		BE100A9A281AEFD3002277C9 /* HTTPOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100A99281AEFD3002277C9 /* HTTPOptions.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
@@ -48,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE100A8D281ACF16002277C9 /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
+		BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponseOptions.swift; sourceTree = "<group>"; };
+		BE100A99281AEFD3002277C9 /* HTTPOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPOptions.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
@@ -100,6 +106,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE100A8C281ACEFD002277C9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				BE100A8D281ACF16002277C9 /* HTTPResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		BE100A9B281BD512002277C9 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				BE100A99281AEFD3002277C9 /* HTTPOptions.swift */,
+				FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */,
+				BE100A95281AD368002277C9 /* HTTPResponseOptions.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		FE22000926F531E7007A2A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +136,9 @@
 			children = (
 				FE22003B26F55006007A2A57 /* Gateway */,
 				FE22003F26F55006007A2A57 /* Host */,
+				BE100A9B281BD512002277C9 /* Options */,
 				FE22004226F55007007A2A57 /* Request */,
+				BE100A8C281ACEFD002277C9 /* Response */,
 				FE22004926F55007007A2A57 /* TaskFactory */,
 				FE22003326F55006007A2A57 /* Extensions */,
 				FE22004C26F55007007A2A57 /* Utils */,
@@ -163,7 +189,6 @@
 			children = (
 				FE22004526F55007007A2A57 /* Request.swift */,
 				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
-				FE22004326F55007007A2A57 /* HTTPRequestOptions.swift */,
 				FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */,
 				FE22004626F55007007A2A57 /* HTTPMethod.swift */,
 				FE22004726F55007007A2A57 /* HTTPRequest.swift */,
@@ -290,7 +315,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 9999;
-				ORGANIZATIONNAME = "Vasiliy Zaytsev";
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					FE22FF9E26F3E00F007A2A57 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -370,10 +395,12 @@
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
 				FE22006626F55007007A2A57 /* Tracker.swift in Sources */,
+				BE100A9A281AEFD3002277C9 /* HTTPOptions.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
 				FE22005D26F55007007A2A57 /* HTTPRequestOptions.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
+				BE100A96281AD368002277C9 /* HTTPResponseOptions.swift in Sources */,
 				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
 				FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */,
 				FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */,
@@ -386,6 +413,7 @@
 				FE22005A26F55007007A2A57 /* Gateway.swift in Sources */,
 				FE22005726F55007007A2A57 /* Dictionary+Merging.swift in Sources */,
 				FE22005326F55007007A2A57 /* URLSession+Extension.swift in Sources */,
+				BE100A8E281ACF16002277C9 /* HTTPResponse.swift in Sources */,
 				FE22005926F55007007A2A57 /* GatewayError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,13 +11,30 @@ public protocol Host {
   @discardableResult
   func push<Value>(
     request: HTTPRequest<Value>,
+    options: HTTPOptions?,
     complitionHandler: @escaping (Result<Value, Error>) -> Void
   ) -> CancelableTask
+}
+
+public extension Host {
+  @discardableResult
+  func push<Value>(
+    request: HTTPRequest<Value>,
+    complitionHandler: @escaping (Result<Value, Error>) -> Void
+  ) -> CancelableTask {
+    push(request: request, options: nil, complitionHandler: complitionHandler)
+  }
 
   @discardableResult
   func push<Value>(
     request: HTTPRequest<Value>,
-    options: HTTPRequestOptions?,
+    requestOptions: HTTPRequestOptions?,
     complitionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask
+  ) -> CancelableTask {
+    push(
+      request: request,
+      options: .init(requestOptions: requestOptions),
+      complitionHandler: complitionHandler
+    )
+  }
 }

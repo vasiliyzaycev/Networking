@@ -2,7 +2,7 @@
 //  HTTPRequestProgress.swift
 //  Networking
 //
-//  Created by Василий Зайцев on 26.04.2022.
+//  Created by Vasiliy Zaytsev on 26.04.2022.
 //
 
 import Foundation
