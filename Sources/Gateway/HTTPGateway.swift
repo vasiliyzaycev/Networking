@@ -10,7 +10,7 @@ import Foundation
 public final class HTTPGateway: NSObject, Gateway {
   public let session: URLSession
 
-  private let options: HTTPOptions?
+  private let gatewayOptions: HTTPOptions?
   private let proxy = WeakProxy()
 
   public init(
@@ -18,7 +18,7 @@ public final class HTTPGateway: NSObject, Gateway {
     options: HTTPOptions? = nil,
     queue: OperationQueue = .main
   ) {
-    self.options = options
+    self.gatewayOptions = options
     self.session = URLSession(configuration: configuration, delegate: proxy, delegateQueue: queue)
     super.init()
     proxy.object = self
@@ -30,59 +30,34 @@ public final class HTTPGateway: NSObject, Gateway {
     hostURL: URL,
     hostOptions: HTTPOptions?,
     extraOptions: HTTPOptions?,
-    complitionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
+    completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
   ) -> CancelableTask {
-    let combinedOptions = combineOptions(
-      gatewayOptions: options,
+    let options = combineOptions(
+      gatewayOptions: gatewayOptions,
       hostOptions: hostOptions,
       extraOptions: extraOptions,
       requestOptions: request.options
     )
+    let sessionTask: URLSessionTask
     do {
-      let sessionTask = try request.taskFactory.task(
-        request: createURLRequest(
-          hostURL: hostURL,
-          request: request,
-          options: combinedOptions?.requestOptions
-        ),
-        gateway: self
-      )
-      var responseData = Data()
-      sessionTask.allowUntrustedSSLCertificates =
-      hostOptions?.requestOptions?.allowUntrustedSSLCertificates ?? false
-      sessionTask.completionHandler = { [weak sessionTask] error in
-        guard let sessionTask = sessionTask else { return }
-        let responseURL = sessionTask.originalRequest?.url ?? hostURL
-        if let error = error {
-          complitionHandler(
-            .failure(GatewayError.network(responseURL, error.localizedDescription))
-          )
-        } else if error == nil && sessionTask.response == nil {
-          complitionHandler(
-            .failure(GatewayError.server("Bad response from URL=\(responseURL)"))
-          )
-        } else {
-          guard let metadata = sessionTask.response as? HTTPURLResponse else {
-            let error = GatewayError.server("URLResponse is nil or not HTTPURLResponse")
-            complitionHandler(.failure(error))
-            return
-          }
-          complitionHandler(.success(.init(data: responseData, metadata: metadata)))
-        }
-      }
-      sessionTask.dataHandler = { data in
-        responseData.append(data)
-      }
-      sessionTask.resume() // TODO: pos_start
-      return CancelableTask { sessionTask.cancel() }
+      sessionTask = try createSessionTask(hostURL, request, options?.requestOptions)
     } catch {
+      completionHandler(.failure(error))
       return CancelableTask {}
     }
+    if let simulatedResponse = simulatedResponse(request, hostURL, options) {
+      completionHandler(.success(simulatedResponse))
+      return CancelableTask {}
+    }
+    setupAllowingUntrustedSSLCertificates(for: sessionTask, options?.requestOptions)
+    setupHandlers(for: sessionTask, hostURL, completionHandler)
+    sessionTask.resume() // TODO: pos_start
+    return CancelableTask { sessionTask.cancel() }
   }
 
   // TODO: support multiple invalidation
-  public func invalidate(forced: Bool, complitionHandler: ((Error?) -> Void)?) {
-    session.invalidateHandler = complitionHandler
+  public func invalidate(forced: Bool, completionHandler: ((Error?) -> Void)?) {
+    session.invalidateHandler = completionHandler
     if forced {
       session.invalidateAndCancel()
     } else {
@@ -230,6 +205,17 @@ private extension HTTPGateway {
     return result
   }
 
+  private func createSessionTask(
+    _ hostURL: URL,
+    _ request: Request,
+    _ requestOptions: HTTPRequestOptions?
+  ) throws -> URLSessionTask {
+    try request.taskFactory.createTask(
+      request: createURLRequest(hostURL: hostURL, request: request, options: requestOptions),
+      gateway: self
+    )
+  }
+
   private func createURLRequest(
     hostURL: URL,
     request: Request,
@@ -246,5 +232,57 @@ private extension HTTPGateway {
     urlRequest.httpBody = options?.body
     urlRequest.allHTTPHeaderFields = options?.headers
     return urlRequest
+  }
+
+  private func setupAllowingUntrustedSSLCertificates(
+    for sessionTask: URLSessionTask,
+    _ requestOptions: HTTPRequestOptions?
+  ) {
+    guard let allowUntrustedSSLCertificates = requestOptions?.allowUntrustedSSLCertificates
+    else { return }
+    sessionTask.allowUntrustedSSLCertificates = allowUntrustedSSLCertificates
+  }
+
+  private func setupHandlers(
+    for sessionTask: URLSessionTask,
+    _ hostURL: URL,
+    _ completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
+  ) {
+    var responseData = Data()
+    sessionTask.dataHandler = { data in
+      responseData.append(data)
+    }
+    sessionTask.completionHandler = { [weak sessionTask] error in
+      guard let sessionTask = sessionTask else { return }
+      let responseURL = sessionTask.originalRequest?.url ?? hostURL
+      if let error = error {
+        completionHandler(
+          .failure(GatewayError.network(responseURL, error.localizedDescription))
+        )
+      } else if error == nil && sessionTask.response == nil {
+        completionHandler(
+          .failure(GatewayError.server("Bad response from URL=\(responseURL)"))
+        )
+      } else {
+        guard let metadata = sessionTask.response as? HTTPURLResponse else {
+          let error = GatewayError.server("URLResponse is nil or not HTTPURLResponse")
+          completionHandler(.failure(error))
+          return
+        }
+        completionHandler(.success(.init(data: responseData, metadata: metadata)))
+      }
+    }
+  }
+
+  private func simulatedResponse(
+    _ request: Request,
+    _ hostURL: URL,
+    _ options: HTTPOptions?
+  ) -> HTTPResponse? {
+    options?.responseSimulator?.probeSimulation(
+      for: request,
+      hostURL: hostURL,
+      options: options?.requestOptions
+    )
   }
 }

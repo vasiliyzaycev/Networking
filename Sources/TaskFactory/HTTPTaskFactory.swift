@@ -14,7 +14,7 @@ public struct HTTPTaskFactory: TaskFactory {
     self.factory = factory
   }
 
-  public func task(request: URLRequest, gateway: Gateway) throws -> URLSessionTask {
+  public func createTask(request: URLRequest, gateway: Gateway) throws -> URLSessionTask {
     try factory(request, gateway)
   }
 }

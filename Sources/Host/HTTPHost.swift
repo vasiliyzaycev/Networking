@@ -29,7 +29,7 @@ public final class HTTPHost: Host {
   public func push<Value>(
     request: HTTPRequest<Value>,
     options extraOptions: HTTPOptions?,
-    complitionHandler: @escaping (Result<Value, Error>) -> Void
+    completionHandler: @escaping (Result<Value, Error>) -> Void
   ) -> CancelableTask {
     gateway.push(
       request: request,
@@ -41,7 +41,7 @@ public final class HTTPHost: Host {
         assertionFailure("Dealloc host while processing request")
         return
       }
-      complitionHandler(self.handle(result, for: request))
+      completionHandler(self.handle(result, for: request))
     }
   }
 }

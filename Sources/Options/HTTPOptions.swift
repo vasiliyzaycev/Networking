@@ -9,14 +9,14 @@ import Foundation
 
 public struct HTTPOptions {
   public let requestOptions: HTTPRequestOptions?
-  public let simulatedResponseOptions: HTTPSimulatedResponseOptions?
+  public let responseSimulator: ResponseSimulator?
 
   public init(
     requestOptions: HTTPRequestOptions? = nil,
-    simulatedResponseOptions: HTTPSimulatedResponseOptions? = nil
+    responseSimulator: ResponseSimulator? = nil
   ) {
     self.requestOptions = requestOptions
-    self.simulatedResponseOptions = simulatedResponseOptions
+    self.responseSimulator = responseSimulator
   }
 
   public static func merge(
@@ -25,8 +25,8 @@ public struct HTTPOptions {
   ) -> HTTPOptions? {
     guard let source = source else { return target }
     return HTTPOptions(
-      requestOptions: HTTPRequestOptions.merge(source.requestOptions, with: target?.requestOptions),
-      simulatedResponseOptions: target?.simulatedResponseOptions ?? source.simulatedResponseOptions
+      requestOptions: .merge(source.requestOptions, with: target?.requestOptions),
+      responseSimulator: target?.responseSimulator ?? source.responseSimulator
     )
   }
 
@@ -34,13 +34,13 @@ public struct HTTPOptions {
     _ source: HTTPOptions?,
     with target: HTTPRequestOptions?
   ) -> HTTPOptions? {
-    merge(source, with: HTTPOptions(requestOptions: target))
+    merge(source, with: .init(requestOptions: target))
   }
 
   public static func merge(
     _ source: HTTPOptions?,
-    with target: HTTPSimulatedResponseOptions?
+    with target: ResponseSimulator?
   ) -> HTTPOptions? {
-    merge(source, with: HTTPOptions(simulatedResponseOptions: target))
+    merge(source, with: .init(responseSimulator: target))
   }
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol TaskFactory {
-  func task(request: URLRequest, gateway: Gateway) throws -> URLSessionTask
+  func createTask(request: URLRequest, gateway: Gateway) throws -> URLSessionTask
 }

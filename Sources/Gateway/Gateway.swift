@@ -16,10 +16,10 @@ public protocol Gateway {
     hostURL: URL,
     hostOptions: HTTPOptions?,
     extraOptions: HTTPOptions?,
-    complitionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
+    completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
   ) -> CancelableTask
 
-  func invalidate(forced: Bool, complitionHandler: ((Error?) -> Void)?)
+  func invalidate(forced: Bool, completionHandler: ((Error?) -> Void)?)
 }
 
 public struct CancelableTask {
