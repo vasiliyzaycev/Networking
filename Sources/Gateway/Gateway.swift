@@ -7,21 +7,17 @@
 
 import Foundation
 
+@NetworkingActor
 public protocol Gateway {
-  var session: URLSession { get }
+  nonisolated var session: URLSession { get }
 
   @discardableResult
   func push(
     request: Request,
     hostURL: URL,
     hostOptions: HTTPOptions?,
-    extraOptions: HTTPOptions?,
-    completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
-  ) -> CancelableTask
+    extraOptions: HTTPOptions?
+  ) async throws -> HTTPResponse
 
-  func invalidate(forced: Bool, completionHandler: ((Error?) -> Void)?)
-}
-
-public struct CancelableTask {
-  let cancelClosure: () -> Void
+  func invalidate(forced: Bool) async throws
 }

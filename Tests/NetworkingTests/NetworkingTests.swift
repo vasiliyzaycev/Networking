@@ -1,14 +1,22 @@
 import Networking
 import XCTest
 
+@NetworkingActor
 class NetworkingTests: XCTestCase {
-  let gateway = HTTPGateway()
-  var host = HTTPHost(
-    baseURL: URL(string: "https://jsonplaceholder.typicode.com/posts")!,
-    gateway: HTTPGateway()
-  )
+  var gateway: HTTPGateway!
+  var host: HTTPHost!
 
-  func testGateway() {
+  @NetworkingActor
+  override func setUp() {
+    super.setUp()
+    gateway = HTTPGateway()
+    self.host = HTTPHost(
+      baseURL: URL(string: "https://jsonplaceholder.typicode.com/posts")!,
+      gateway: HTTPGateway()
+    )
+  }
+
+  func testGateway() async throws {
     let request = HTTPRequest<Data>(
       method: .get,
       options: HTTPRequestOptions(urlPath: "1"),
@@ -16,32 +24,17 @@ class NetworkingTests: XCTestCase {
       taskFactory: HTTPTaskFactory.dataTaskFactory()
     )
 
-    let expectation = XCTestExpectation()
-
-    gateway.push(
+    let response = try await gateway.push(
       request: request,
       hostURL: URL(string: "https://jsonplaceholder.typicode.com/posts")!,
       hostOptions: nil,
       extraOptions: nil
-    ) { result in
-      switch result {
-      case .success(let response):
-        do {
-          let response = try JSONDecoder().decode(TestResponse.self, from: response.data!)
-          print(response.title)
-          expectation.fulfill()
-        } catch {
-          print(":(")
-        }
-      case .failure(let error):
-        print(error)
-      }
-    }
-
-    wait(for: [expectation], timeout: 1)
+    )
+    let result = try JSONDecoder().decode(TestResponse.self, from: response.data!)
+    print(result.title)
   }
 
-  func testHost() {
+  func testHost() async throws {
     host = HTTPHost(
       baseURL: URL(string: "https://jsonplaceholder.typicode.com/posts")!,
       gateway: HTTPGateway()
@@ -59,22 +52,11 @@ class NetworkingTests: XCTestCase {
       taskFactory: HTTPTaskFactory.dataTaskFactory()
     )
 
-    let expectation = XCTestExpectation()
-
-    host.push(request: request) { result in
-      switch result {
-      case .success(let response):
-        print(response.title)
-        expectation.fulfill()
-      case .failure(let error):
-        print(error)
-      }
-    }
-
-    wait(for: [expectation], timeout: 1)
+    let response = try await host.push(request: request)
+    print(response.title)
   }
 
-  func testMergeOptions() {
+  func testMergeOptions() async throws {
     host = HTTPHost(
       baseURL: URL(string: "https://jsonplaceholder.typicode.com/")!,
       gateway: HTTPGateway()
@@ -85,25 +67,14 @@ class NetworkingTests: XCTestCase {
       .with(extraSuccessStatusCodes: [404])
       .build()
 
-    let expectation = XCTestExpectation()
-
-    host.push(
+    let response = try await host.push(
       request: request,
       requestOptions: .init(urlPath: "1")
-    ) { result in
-      switch result {
-      case .success(let response):
-        print(response.title)
-        expectation.fulfill()
-      case .failure(let error):
-        print(error)
-      }
-    }
-
-    wait(for: [expectation], timeout: 1)
+    )
+    print(response.title)
   }
 
-  func testDownloadTask() {
+  func testDownloadTask() async throws {
     host = HTTPHost(
       baseURL: URL(
         string: """
@@ -123,19 +94,8 @@ class NetworkingTests: XCTestCase {
       }
     ).build()
 
-    let expectation = XCTestExpectation()
-
-    host.push(request: request) { result in
-      switch result {
-      case .success:
-        print("Success")
-        expectation.fulfill()
-      case .failure(let error):
-        print(error)
-      }
-    }
-
-    wait(for: [expectation], timeout: 2)
+    try await host.push(request: request)
+    print("Success")
   }
 }
 

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@NetworkingActor
 public final class HTTPHost: Host {
   private let baseURL: URL
   private let gateway: Gateway
@@ -28,40 +29,28 @@ public final class HTTPHost: Host {
   @discardableResult
   public func push<Value>(
     request: HTTPRequest<Value>,
-    options extraOptions: HTTPOptions?,
-    completionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask {
-    gateway.push(
+    options extraOptions: HTTPOptions?
+  ) async throws -> Value {
+    let response = try await gateway.push(
       request: request,
       hostURL: baseURL,
       hostOptions: options,
       extraOptions: extraOptions
-    ) { [weak self] result in
-      guard let self = self else {
-        assertionFailure("Dealloc host while processing request")
-        return
-      }
-      completionHandler(self.handle(result, for: request))
-    }
+    )
+    return try handle(response, for: request)
   }
 }
 
 private extension HTTPHost {
   private func handle<Value>(
-    _ gatewayResult: Result<HTTPResponse, Error>,
+    _ response: HTTPResponse,
     for request: HTTPRequest<Value>
-  ) -> Result<Value, Error> {
-    switch gatewayResult {
-    case .success(let response):
-      do {
-        let value = try request.responseHandler(response)
-        return .success(value)
-      } catch {
-        self.tracker?.track("Invalid server response!")
-        return .failure(error)
-      }
-    case .failure(let error):
-      return .failure(error)
+  ) throws -> Value {
+    do {
+      return try request.responseHandler(response)
+    } catch {
+      self.tracker?.track("Invalid server response!")
+      throw error
     }
   }
 }

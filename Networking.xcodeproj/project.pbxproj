@@ -12,6 +12,7 @@
 		BE100AAA281C4D30002277C9 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100AA9281C4D30002277C9 /* HTTPResponse.swift */; };
 		BE100AAD281C4D5B002277C9 /* ResponseSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100AAB281C4D5B002277C9 /* ResponseSimulator.swift */; };
 		BE100AAE281C4D5B002277C9 /* HTTPResponseSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100AAC281C4D5B002277C9 /* HTTPResponseSimulator.swift */; };
+		BE21CD772837A63500011EAA /* NetworkingActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE21CD762837A63500011EAA /* NetworkingActor.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
@@ -57,6 +58,7 @@
 		BE100AA9281C4D30002277C9 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		BE100AAB281C4D5B002277C9 /* ResponseSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSimulator.swift; sourceTree = "<group>"; };
 		BE100AAC281C4D5B002277C9 /* HTTPResponseSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSimulator.swift; sourceTree = "<group>"; };
+		BE21CD762837A63500011EAA /* NetworkingActor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingActor.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
@@ -129,6 +131,15 @@
 			path = Sources/Response;
 			sourceTree = "<group>";
 		};
+		BE21CD752837A63500011EAA /* Actor */ = {
+			isa = PBXGroup;
+			children = (
+				BE21CD762837A63500011EAA /* NetworkingActor.swift */,
+			);
+			name = Actor;
+			path = Sources/Actor;
+			sourceTree = "<group>";
+		};
 		FE22000926F531E7007A2A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +150,7 @@
 		FE22002226F547F1007A2A57 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				BE21CD752837A63500011EAA /* Actor */,
 				FE22003B26F55006007A2A57 /* Gateway */,
 				FE22003F26F55006007A2A57 /* Host */,
 				BE100AA3281C4D1E002277C9 /* Options */,
@@ -417,6 +429,7 @@
 				BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */,
 				FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */,
 				FE22005A26F55007007A2A57 /* Gateway.swift in Sources */,
+				BE21CD772837A63500011EAA /* NetworkingActor.swift in Sources */,
 				FE22005726F55007007A2A57 /* Dictionary+Merging.swift in Sources */,
 				FE22005326F55007007A2A57 /* URLSession+Extension.swift in Sources */,
 				FE22005926F55007007A2A57 /* GatewayError.swift in Sources */,

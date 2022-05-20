@@ -7,11 +7,13 @@
 
 import Foundation
 
+@NetworkingActor
 public final class HTTPGateway: NSObject, Gateway {
   public let session: URLSession
 
   private let gatewayOptions: HTTPOptions?
   private let proxy = WeakProxy()
+  private var invalidateTask: Task<Void, Error>?
 
   public init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,
@@ -29,47 +31,40 @@ public final class HTTPGateway: NSObject, Gateway {
     request: Request,
     hostURL: URL,
     hostOptions: HTTPOptions?,
-    extraOptions: HTTPOptions?,
-    completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
-  ) -> CancelableTask {
+    extraOptions: HTTPOptions?
+  ) async throws -> HTTPResponse {
     let options = combineOptions(
       gatewayOptions: gatewayOptions,
       hostOptions: hostOptions,
       extraOptions: extraOptions,
       requestOptions: request.options
     )
-    let sessionTask: URLSessionTask
-    do {
-      sessionTask = try createSessionTask(hostURL, request, options?.requestOptions)
-    } catch {
-      completionHandler(.failure(error))
-      return CancelableTask {}
-    }
+    let sessionTask = try createSessionTask(hostURL, request, options?.requestOptions)
     if let simulatedResponse = simulatedResponse(request, hostURL, options) {
-      completionHandler(.success(simulatedResponse))
-      return CancelableTask {}
+      return simulatedResponse
     }
     setupAllowingUntrustedSSLCertificates(for: sessionTask, options?.requestOptions)
-    setupHandlers(for: sessionTask, hostURL, completionHandler)
-    sessionTask.resume() // TODO: pos_start
-    return CancelableTask { sessionTask.cancel() }
+    return try await withCheckedThrowingContinuation { [weak self] continuation in
+      self?.start(task: sessionTask, hostURL, continuation)
+    }
   }
 
-  // TODO: support multiple invalidation
-  public func invalidate(forced: Bool, completionHandler: ((Error?) -> Void)?) {
-    session.invalidateHandler = completionHandler
-    if forced {
-      session.invalidateAndCancel()
-    } else {
-      session.finishTasksAndInvalidate()
+  public func invalidate(forced: Bool) async throws {
+    if let invalidateTask = invalidateTask {
+      return try await invalidateTask.value
     }
+    self.invalidateTask = Task {
+      try await withCheckedThrowingContinuation { continuation in
+        invalidate(forced: forced, continuation)
+      }
+    }
+    try await invalidateTask?.value
   }
 }
 
 extension WeakProxy: URLSessionDelegate {}
 
 extension HTTPGateway: URLSessionDelegate {
-  // TODO: support multiple invalidation
   public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     session.invalidateHandler?(error)
   }
@@ -234,46 +229,6 @@ private extension HTTPGateway {
     return urlRequest
   }
 
-  private func setupAllowingUntrustedSSLCertificates(
-    for sessionTask: URLSessionTask,
-    _ requestOptions: HTTPRequestOptions?
-  ) {
-    guard let allowUntrustedSSLCertificates = requestOptions?.allowUntrustedSSLCertificates
-    else { return }
-    sessionTask.allowUntrustedSSLCertificates = allowUntrustedSSLCertificates
-  }
-
-  private func setupHandlers(
-    for sessionTask: URLSessionTask,
-    _ hostURL: URL,
-    _ completionHandler: @escaping (Result<HTTPResponse, Error>) -> Void
-  ) {
-    var responseData = Data()
-    sessionTask.dataHandler = { data in
-      responseData.append(data)
-    }
-    sessionTask.completionHandler = { [weak sessionTask] error in
-      guard let sessionTask = sessionTask else { return }
-      let responseURL = sessionTask.originalRequest?.url ?? hostURL
-      if let error = error {
-        completionHandler(
-          .failure(GatewayError.network(responseURL, error.localizedDescription))
-        )
-      } else if error == nil && sessionTask.response == nil {
-        completionHandler(
-          .failure(GatewayError.server("Bad response from URL=\(responseURL)"))
-        )
-      } else {
-        guard let metadata = sessionTask.response as? HTTPURLResponse else {
-          let error = GatewayError.server("URLResponse is nil or not HTTPURLResponse")
-          completionHandler(.failure(error))
-          return
-        }
-        completionHandler(.success(.init(data: responseData, metadata: metadata)))
-      }
-    }
-  }
-
   private func simulatedResponse(
     _ request: Request,
     _ hostURL: URL,
@@ -284,5 +239,55 @@ private extension HTTPGateway {
       hostURL: hostURL,
       options: options?.requestOptions
     )
+  }
+
+  private func setupAllowingUntrustedSSLCertificates(
+    for sessionTask: URLSessionTask,
+    _ requestOptions: HTTPRequestOptions?
+  ) {
+    guard let allowUntrustedSSLCertificates = requestOptions?.allowUntrustedSSLCertificates
+    else { return }
+    sessionTask.allowUntrustedSSLCertificates = allowUntrustedSSLCertificates
+  }
+
+  private func start(
+    task sessionTask: URLSessionTask,
+    _ hostURL: URL,
+    _ continuation: CheckedContinuation<HTTPResponse, Error>
+  ) {
+    var responseData = Data()
+    sessionTask.dataHandler = { data in
+      responseData.append(data)
+    }
+    sessionTask.completionHandler = { [unowned sessionTask] error in
+      let responseURL = sessionTask.originalRequest?.url ?? hostURL
+      if let error = error {
+        continuation.resume(throwing: GatewayError.network(responseURL, error.localizedDescription))
+      } else if error == nil && sessionTask.response == nil {
+        continuation.resume(throwing: GatewayError.server("Bad response from URL=\(responseURL)"))
+      }
+      guard let metadata = sessionTask.response as? HTTPURLResponse else {
+        let error = GatewayError.server("URLResponse is nil or not HTTPURLResponse")
+        continuation.resume(throwing: error)
+        return
+      }
+      continuation.resume(returning: HTTPResponse(data: responseData, metadata: metadata))
+    }
+    sessionTask.resume()
+  }
+
+  private func invalidate(forced: Bool, _ continuation: CheckedContinuation<Void, Error>) {
+    session.invalidateHandler = { error in
+      if let error = error {
+        continuation.resume(throwing: error)
+        return
+      }
+      continuation.resume()
+    }
+    if forced {
+      session.invalidateAndCancel()
+    } else {
+      session.finishTasksAndInvalidate()
+    }
   }
 }

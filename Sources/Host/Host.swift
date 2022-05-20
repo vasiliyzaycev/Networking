@@ -7,34 +7,31 @@
 
 import Foundation
 
+@NetworkingActor
 public protocol Host {
   @discardableResult
   func push<Value>(
     request: HTTPRequest<Value>,
-    options: HTTPOptions?,
-    completionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask
+    options: HTTPOptions?
+  ) async throws -> Value
 }
 
 public extension Host {
   @discardableResult
   func push<Value>(
-    request: HTTPRequest<Value>,
-    completionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask {
-    push(request: request, options: nil, completionHandler: completionHandler)
+    request: HTTPRequest<Value>
+  ) async throws -> Value {
+    try await push(request: request, options: nil)
   }
 
   @discardableResult
   func push<Value>(
     request: HTTPRequest<Value>,
-    requestOptions: HTTPRequestOptions?,
-    completionHandler: @escaping (Result<Value, Error>) -> Void
-  ) -> CancelableTask {
-    push(
+    requestOptions: HTTPRequestOptions?
+  ) async throws -> Value {
+    try await push(
       request: request,
-      options: .init(requestOptions: requestOptions),
-      completionHandler: completionHandler
+      options: .init(requestOptions: requestOptions)
     )
   }
 }
