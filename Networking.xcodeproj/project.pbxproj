@@ -13,6 +13,7 @@
 		BE100AAD281C4D5B002277C9 /* ResponseSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100AAB281C4D5B002277C9 /* ResponseSimulator.swift */; };
 		BE100AAE281C4D5B002277C9 /* HTTPResponseSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE100AAC281C4D5B002277C9 /* HTTPResponseSimulator.swift */; };
 		BE21CD772837A63500011EAA /* NetworkingActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE21CD762837A63500011EAA /* NetworkingActor.swift */; };
+		BE22783A2838A49400154F49 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2278392838A49400154F49 /* NetworkingTests.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
@@ -38,7 +39,6 @@
 		FE22006626F55007007A2A57 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004F26F55007007A2A57 /* Tracker.swift */; };
 		FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22005026F55007007A2A57 /* TrackerProtocol.swift */; };
 		FE22FFA926F3E00F007A2A57 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE22FF9F26F3E00F007A2A57 /* Networking.framework */; };
-		FE22FFC126F3E43A007A2A57 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22FFC026F3E43A007A2A57 /* NetworkingTests.swift */; };
 		FE22FFFB26F3E7A5007A2A57 /* Networking.h in Headers */ = {isa = PBXBuildFile; fileRef = FE22FFFA26F3E7A5007A2A57 /* Networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -59,6 +59,7 @@
 		BE100AAB281C4D5B002277C9 /* ResponseSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSimulator.swift; sourceTree = "<group>"; };
 		BE100AAC281C4D5B002277C9 /* HTTPResponseSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSimulator.swift; sourceTree = "<group>"; };
 		BE21CD762837A63500011EAA /* NetworkingActor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingActor.swift; sourceTree = "<group>"; };
+		BE2278392838A49400154F49 /* NetworkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingTests.swift; path = Tests/NetworkingTests.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		FE22005026F55007007A2A57 /* TrackerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerProtocol.swift; sourceTree = "<group>"; };
 		FE22FF9F26F3E00F007A2A57 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE22FFA826F3E00F007A2A57 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE22FFC026F3E43A007A2A57 /* NetworkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingTests.swift; path = Tests/NetworkingTests/NetworkingTests.swift; sourceTree = "<group>"; };
 		FE22FFC226F3E453007A2A57 /* NetworkingTestsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingTestsInfo.plist; path = InfoPlists/NetworkingTestsInfo.plist; sourceTree = "<group>"; };
 		FE22FFFA26F3E7A5007A2A57 /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -267,7 +267,7 @@
 		FE22FFC426F3E467007A2A57 /* NetworkingTests */ = {
 			isa = PBXGroup;
 			children = (
-				FE22FFC026F3E43A007A2A57 /* NetworkingTests.swift */,
+				BE2278392838A49400154F49 /* NetworkingTests.swift */,
 				FE22FFC226F3E453007A2A57 /* NetworkingTestsInfo.plist */,
 			);
 			name = NetworkingTests;
@@ -339,7 +339,7 @@
 					};
 					FE22FFA726F3E00F007A2A57 = {
 						CreatedOnToolsVersion = 12.5.1;
-						LastSwiftMigration = 1250;
+						LastSwiftMigration = 9999;
 					};
 				};
 			};
@@ -441,7 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE22FFC126F3E43A007A2A57 /* NetworkingTests.swift in Sources */,
+				BE22783A2838A49400154F49 /* NetworkingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

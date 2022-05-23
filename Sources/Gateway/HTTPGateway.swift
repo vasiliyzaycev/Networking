@@ -18,7 +18,7 @@ public final class HTTPGateway: NSObject, Gateway {
   public init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,
     options: HTTPOptions? = nil,
-    queue: OperationQueue = .main
+    queue: OperationQueue? = nil
   ) {
     self.gatewayOptions = options
     self.session = URLSession(configuration: configuration, delegate: proxy, delegateQueue: queue)
