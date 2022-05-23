@@ -262,16 +262,19 @@ private extension HTTPGateway {
     sessionTask.completionHandler = { [unowned sessionTask] error in
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
       if let error = error {
-        continuation.resume(throwing: GatewayError.network(responseURL, error.localizedDescription))
-      } else if error == nil && sessionTask.response == nil {
-        continuation.resume(throwing: GatewayError.server("Bad response from URL=\(responseURL)"))
-      }
-      guard let metadata = sessionTask.response as? HTTPURLResponse else {
-        let error = GatewayError.server("URLResponse is nil or not HTTPURLResponse")
-        continuation.resume(throwing: error)
+        continuation.resume(throwing: GatewayError.network(error, responseURL))
         return
       }
-      continuation.resume(returning: HTTPResponse(data: responseData, metadata: metadata))
+      guard let response = sessionTask.response else {
+        continuation.resume(throwing: GatewayError.systemEmptyResponse(responseURL))
+        return
+      }
+      guard let response = response as? HTTPURLResponse else {
+        // For HTTP request URLResponse is actually an instance of the HTTPURLResponse class.
+        // See more at https://developer.apple.com/documentation/foundation/urlresponse
+        preconditionFailure("URLResponse is not HTTPURLResponse")
+      }
+      continuation.resume(returning: HTTPResponse(data: responseData, metadata: response))
     }
     sessionTask.resume()
   }

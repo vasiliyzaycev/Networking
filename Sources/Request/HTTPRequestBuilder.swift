@@ -130,7 +130,7 @@ private extension HTTPRequestBuilder {
         return try optionalDataHandler(response.data)
       } else if let dataHandler = dataHandler {
         guard let responseData = response.data else {
-          throw GatewayError.server("Еmpty response data")
+          throw GatewayError.serverEmptyResponseData(response.metadata.url)
         }
         return try dataHandler(responseData)
       }
@@ -153,7 +153,7 @@ private extension HTTPRequestBuilder {
         metadata.contains2XXStatusCode,
         !extraFailureStatusCodes.contains(metadata.statusCode)
       else {
-        throw GatewayError.serverWithHTTPStatusCode(metadata.statusCode)
+        throw GatewayError.serverWithHTTPStatusCode(metadata.statusCode, metadata.url)
       }
     }
     guard let customMetadataHandler = customMetadataHandler else { return metadataHandler }

@@ -8,7 +8,8 @@
 import Foundation
 
 public enum GatewayError: Error {
-  case network(URL?, String?)
-  case server(String?)
-  case serverWithHTTPStatusCode(Int)
+  case network(Error, URL)
+  case serverEmptyResponseData(URL?)
+  case serverWithHTTPStatusCode(Int, URL?)
+  case systemEmptyResponse(URL)
 }
