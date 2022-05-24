@@ -2,7 +2,7 @@
 //  URL+Extension.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 30.08.2021.
+//  Created by Vasiliy Zaycev on 30.08.2021.
 //
 
 import Foundation

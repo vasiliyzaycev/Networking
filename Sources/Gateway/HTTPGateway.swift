@@ -2,7 +2,7 @@
 //  Gateway.swift
 //  NetworkService
 //
-//  Created by Vasiliy Zaytsev on 23.08.2021.
+//  Created by Vasiliy Zaycev on 23.08.2021.
 //
 
 import Foundation

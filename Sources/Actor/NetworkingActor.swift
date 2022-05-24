@@ -2,7 +2,7 @@
 //  NetworkingActor.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 19.05.2022.
+//  Created by Vasiliy Zaycev on 19.05.2022.
 //
 
 @globalActor

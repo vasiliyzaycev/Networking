@@ -2,7 +2,7 @@
 //  GatewayError.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 26.08.2021.
+//  Created by Vasiliy Zaycev on 26.08.2021.
 //
 
 import Foundation

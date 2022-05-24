@@ -2,7 +2,7 @@
 //  ResponseSimulator.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 29.04.2022.
+//  Created by Vasiliy Zaycev on 29.04.2022.
 //
 
 import Foundation

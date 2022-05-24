@@ -2,7 +2,7 @@
 //  HTTPResponse.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 28.04.2022.
+//  Created by Vasiliy Zaycev on 28.04.2022.
 //
 
 import Foundation

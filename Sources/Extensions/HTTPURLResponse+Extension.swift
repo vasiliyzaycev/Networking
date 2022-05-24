@@ -2,7 +2,7 @@
 //  HTTPURLResponse+Extension.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 02.09.2021.
+//  Created by Vasiliy Zaycev on 02.09.2021.
 //
 
 import Foundation

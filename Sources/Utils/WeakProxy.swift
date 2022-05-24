@@ -2,7 +2,7 @@
 //  URLSessionDelegateProxy.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 27.04.2022.
+//  Created by Vasiliy Zaycev on 27.04.2022.
 //
 
 import Foundation

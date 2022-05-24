@@ -2,7 +2,7 @@
 //  Dictionary+URLQueryConvertible.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 29.08.2021.
+//  Created by Vasiliy Zaycev on 29.08.2021.
 //
 
 import Foundation

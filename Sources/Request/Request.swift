@@ -2,7 +2,7 @@
 //  Request.swift
 //  Networking
 //
-//  Created by Vasiliy Zaytsev on 01.09.2021.
+//  Created by Vasiliy Zaycev on 01.09.2021.
 //
 
 import Foundation
