@@ -45,7 +45,7 @@ class NetworkingTests: XCTestCase {
       options: HTTPRequestOptions(urlPath: "1"),
       responseHandler: { response in
         guard let data = response.data else {
-          throw GatewayError.serverEmptyResponseData(nil)
+          throw GatewayError.serverEmptyResponseData(url: nil)
         }
         return try JSONDecoder().decode(TestResponse.self, from: data)
       },

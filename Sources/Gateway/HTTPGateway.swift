@@ -262,11 +262,11 @@ private extension HTTPGateway {
     sessionTask.completionHandler = { [unowned sessionTask] error in
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
       if let error = error {
-        continuation.resume(throwing: GatewayError.network(error, responseURL))
+        continuation.resume(throwing: GatewayError.network(reason: error, url: responseURL))
         return
       }
       guard let response = sessionTask.response else {
-        continuation.resume(throwing: GatewayError.systemEmptyResponse(responseURL))
+        continuation.resume(throwing: GatewayError.systemEmptyResponse(url: responseURL))
         return
       }
       guard let response = response as? HTTPURLResponse else {
