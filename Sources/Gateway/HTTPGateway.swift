@@ -33,6 +33,7 @@ public final class HTTPGateway: NSObject, Gateway {
     hostOptions: HTTPOptions?,
     extraOptions: HTTPOptions?
   ) async throws -> HTTPResponse {
+    guard invalidateTask == nil else { throw GatewayError.invalidGateway }
     let options = combineOptions(
       gatewayOptions: gatewayOptions,
       hostOptions: hostOptions,
