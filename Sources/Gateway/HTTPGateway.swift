@@ -216,7 +216,7 @@ private extension HTTPGateway {
     request: Request,
     options: HTTPRequestOptions?
   ) -> URLRequest {
-    let fullURL = hostURL.urlByAppending(options?.urlPath, query: options?.urlQuery)
+    let fullURL = hostURL.urlByAppending(options?.urlPath, queryItems: options?.queryItems)
     let responseTimeout = options?.responseTimeout ?? 30.0
     var urlRequest = URLRequest(
       url: fullURL,

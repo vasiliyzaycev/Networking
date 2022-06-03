@@ -13,11 +13,11 @@ extension Dictionary {
     target: [Key: Value]?
   ) -> [Key: Value]? {
     guard let source = source else { return target }
-    return source.takeNewMerging(new: target)
+    return source.takeTargetMerging(target: target)
   }
 
-  func takeNewMerging(new: [Key: Value]?) -> [Key: Value] {
-    guard let new = new else { return self }
-    return merging(new) { _, new in new }
+  func takeTargetMerging(target: [Key: Value]?) -> [Key: Value] {
+    guard let target = target else { return self }
+    return merging(target) { _, target in target }
   }
 }

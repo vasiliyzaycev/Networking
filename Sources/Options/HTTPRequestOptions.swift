@@ -9,7 +9,7 @@ import Foundation
 
 public struct HTTPRequestOptions {
   public let urlPath: String?
-  public let urlQuery: [String: String]?
+  public let queryItems: [URLQueryItem]?
   public let headers: [String: String]?
   public let body: Data?
   public let responseTimeout: TimeInterval?
@@ -17,14 +17,14 @@ public struct HTTPRequestOptions {
 
   public init(
     urlPath: String? = nil,
-    urlQuery: [String: String]? = nil,
+    queryItems: [URLQueryItem]? = nil,
     headers: [String: String]? = nil,
     body: Data? = nil,
     responseTimeout: TimeInterval? = nil,
     allowUntrustedSSLCertificates: Bool? = nil
   ) {
     self.urlPath = urlPath
-    self.urlQuery = urlQuery
+    self.queryItems = queryItems
     self.headers = headers
     self.body = body
     self.responseTimeout = responseTimeout
@@ -45,7 +45,7 @@ private extension HTTPRequestOptions {
     guard let options = options else { return self }
     return HTTPRequestOptions(
       urlPath: mergeURLPaths(with: options.urlPath),
-      urlQuery: mergeURLQuery(with: options.urlQuery),
+      queryItems: mergeQueryItems(with: options.queryItems),
       headers: mergeHeaders(with: options.headers),
       body: options.body ?? body,
       responseTimeout: options.responseTimeout ?? responseTimeout,
@@ -66,8 +66,13 @@ private extension HTTPRequestOptions {
     return sourceURLPath + "/" + targetURLPath
   }
 
-  private func mergeURLQuery(with targetURLQuery: [String: String]?) -> [String: String]? {
-    Dictionary.takeTargetMerging(source: urlQuery, target: targetURLQuery)
+  private func mergeQueryItems(with targetQueryItems: [URLQueryItem]?) -> [URLQueryItem]? {
+    guard let targetQueryItems = targetQueryItems else { return queryItems }
+    guard let queryItems = queryItems else { return targetQueryItems }
+    let targetNames = targetQueryItems.reduce(into: Set()) { result, item in
+      result.insert(item.name)
+    }
+    return targetQueryItems + queryItems.filter { item in !targetNames.contains(item.name) }
   }
 
   private func mergeHeaders(with targetHeaders: [String: String]?) -> [String: String]? {

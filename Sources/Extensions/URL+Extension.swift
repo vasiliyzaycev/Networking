@@ -8,7 +8,7 @@
 import Foundation
 
 extension URL {
-  func urlByAppending(_ pathComponent: String?, query: [String: String]?) -> URL {
+  func urlByAppending(_ pathComponent: String?, queryItems: [URLQueryItem]?) -> URL {
     var url = self
     let path = pathComponent?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
     if let path = path {
@@ -16,9 +16,9 @@ extension URL {
       url = appendingPathComponent(path)
     }
     guard
-      let query = query,
+      let queryItems = queryItems,
       let separator = url.query != nil ? "&" : "?",
-      let result = URL(string: url.absoluteString + separator + query.queryString)
+      let result = URL(string: url.absoluteString + separator + queryItems.queryString)
     else {
       return url
     }

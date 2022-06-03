@@ -17,7 +17,7 @@
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
-		FE22005226F55007007A2A57 /* Dictionary+URLQueryConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003526F55006007A2A57 /* Dictionary+URLQueryConvertible.swift */; };
+		FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003526F55006007A2A57 /* Array+Extension.swift */; };
 		FE22005326F55007007A2A57 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003626F55006007A2A57 /* URLSession+Extension.swift */; };
 		FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003726F55006007A2A57 /* URL+Extension.swift */; };
 		FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003826F55006007A2A57 /* URLSessionDownloadTask+Extensions.swift */; };
@@ -64,7 +64,7 @@
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
 		FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Extension.swift"; sourceTree = "<group>"; };
-		FE22003526F55006007A2A57 /* Dictionary+URLQueryConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+URLQueryConvertible.swift"; sourceTree = "<group>"; };
+		FE22003526F55006007A2A57 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		FE22003626F55006007A2A57 /* URLSession+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		FE22003726F55006007A2A57 /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		FE22003826F55006007A2A57 /* URLSessionDownloadTask+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSessionDownloadTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */,
-				FE22003526F55006007A2A57 /* Dictionary+URLQueryConvertible.swift */,
+				FE22003526F55006007A2A57 /* Array+Extension.swift */,
 				FE22003626F55006007A2A57 /* URLSession+Extension.swift */,
 				FE22003726F55006007A2A57 /* URL+Extension.swift */,
 				FE22003826F55006007A2A57 /* URLSessionDownloadTask+Extensions.swift */,
@@ -408,7 +408,7 @@
 				FE22005B26F55007007A2A57 /* HTTPHost.swift in Sources */,
 				FE22005C26F55007007A2A57 /* Host.swift in Sources */,
 				FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */,
-				FE22005226F55007007A2A57 /* Dictionary+URLQueryConvertible.swift in Sources */,
+				FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */,
 				FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */,
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
