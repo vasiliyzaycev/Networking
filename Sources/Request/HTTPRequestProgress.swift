@@ -8,6 +8,6 @@
 import Foundation
 
 public struct HTTPRequestProgress {
-  public let ready: UInt64
-  public let total: UInt64
+  public let ready: Int64
+  public let total: Int64
 }

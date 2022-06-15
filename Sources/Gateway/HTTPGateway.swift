@@ -15,7 +15,7 @@ public final class HTTPGateway: NSObject, Gateway {
   private let proxy = WeakProxy()
   private var invalidateTask: Task<Void, Error>?
 
-  public init(
+  public nonisolated init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,
     options: HTTPOptions? = nil,
     queue: OperationQueue? = nil
@@ -120,8 +120,8 @@ extension HTTPGateway: URLSessionTaskDelegate {
   ) {
     task.uploadProgress?(
       HTTPRequestProgress(
-        ready: UInt64(totalBytesSent),
-        total: UInt64(totalBytesExpectedToSend)
+        ready: totalBytesSent,
+        total: totalBytesExpectedToSend
       )
     )
   }
@@ -181,8 +181,8 @@ extension HTTPGateway: URLSessionDownloadDelegate {
   ) {
     downloadTask.downloadProgress?(
       HTTPRequestProgress(
-        ready: UInt64(totalBytesWritten),
-        total: UInt64(totalBytesExpectedToWrite)
+        ready: totalBytesWritten,
+        total: totalBytesExpectedToWrite
       )
     )
   }

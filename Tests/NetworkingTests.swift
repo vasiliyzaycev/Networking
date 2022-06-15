@@ -78,8 +78,7 @@ class NetworkingTests: XCTestCase {
     host = HTTPHost(
       baseURL: URL(
         string: """
-          https://images.pexels.com/photos/3599586/pexels-photo-3599586\
-          .jpeg?cs=srgb&dl=pexels-valeriia-miller-3599586.jpg&fm=jpg
+          https://ru.depositphotos.com/112999024/stock-photo-view-of-mount-everest-and.html
           """
       )!,
       gateway: HTTPGateway()

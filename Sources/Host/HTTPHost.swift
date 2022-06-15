@@ -14,7 +14,7 @@ public final class HTTPHost: Host {
   private let options: HTTPOptions?
   private let tracker: TrackerProtocol?
 
-  public init(
+  public nonisolated init(
     baseURL: URL,
     gateway: Gateway,
     options: HTTPOptions? = nil,
