@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class HTTPRequestBuilder<Value> {
+final public class HTTPRequestBuilder<Value> {
   private let method: HTTPMethod
   private let taskFactory: TaskFactory
   private let dataHandler: HTTPDataHandler<Value>?
