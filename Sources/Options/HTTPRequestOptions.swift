@@ -57,11 +57,12 @@ private extension HTTPRequestOptions {
   private func mergeURLPaths(with targetURLPath: String?) -> String? {
     let slashCharacter = CharacterSet(charactersIn: "/")
     let sourceURLPath = urlPath?.trimmingCharacters(in: slashCharacter)
+    let trimmedTargetURLPath = targetURLPath?.trimmingCharacters(in: slashCharacter)
     guard
       let sourceURLPath = sourceURLPath,
-      let targetURLPath = targetURLPath?.trimmingCharacters(in: slashCharacter)
+      let targetURLPath = trimmedTargetURLPath
     else {
-      return sourceURLPath
+      return sourceURLPath ?? trimmedTargetURLPath
     }
     return sourceURLPath + "/" + targetURLPath
   }
