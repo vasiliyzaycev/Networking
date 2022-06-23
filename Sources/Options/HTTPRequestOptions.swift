@@ -31,6 +31,22 @@ public struct HTTPRequestOptions {
     self.allowUntrustedSSLCertificates = allowUntrustedSSLCertificates
   }
 
+  public init(
+    urlPath: String? = nil,
+    headers: [String: String]? = nil,
+    bodyItems: [URLQueryItem],
+    responseTimeout: TimeInterval? = nil,
+    allowUntrustedSSLCertificates: Bool? = nil
+  ) {
+    self.init(
+      urlPath: urlPath,
+      headers: headers,
+      body: Data(bodyItems.queryString.utf8),
+      responseTimeout: responseTimeout,
+      allowUntrustedSSLCertificates: allowUntrustedSSLCertificates
+    )
+  }
+
   public static func merge(
     _ source: HTTPRequestOptions?,
     with target: HTTPRequestOptions?
