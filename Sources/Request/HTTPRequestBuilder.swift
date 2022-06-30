@@ -7,7 +7,7 @@
 
 import Foundation
 
-final public class HTTPRequestBuilder<Value> {
+public final class HTTPRequestBuilder<Value> {
   private let method: HTTPMethod
   private let taskFactory: TaskFactory
   private let dataHandler: HTTPDataHandler<Value>?
@@ -56,7 +56,7 @@ final public class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
-    taskFactory: TaskFactory
+    taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory()
   ) where Value == Void {
     self.init(
       method: method,

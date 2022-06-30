@@ -71,16 +71,14 @@ private extension HTTPRequestOptions {
   }
 
   private func mergeURLPaths(with targetURLPath: String?) -> String? {
-    let slashCharacter = CharacterSet(charactersIn: "/")
-    let sourceURLPath = urlPath?.trimmingCharacters(in: slashCharacter)
-    let trimmedTargetURLPath = targetURLPath?.trimmingCharacters(in: slashCharacter)
     guard
-      let sourceURLPath = sourceURLPath,
-      let targetURLPath = trimmedTargetURLPath
+      let sourceURLPath = urlPath,
+      let targetURLPath = targetURLPath
     else {
-      return sourceURLPath ?? trimmedTargetURLPath
+      return urlPath ?? targetURLPath
     }
-    return sourceURLPath + "/" + targetURLPath
+    let separator = sourceURLPath.hasSuffix("/") ? "" : "/"
+    return sourceURLPath + separator + targetURLPath
   }
 
   private func mergeQueryItems(with targetQueryItems: [URLQueryItem]?) -> [URLQueryItem]? {

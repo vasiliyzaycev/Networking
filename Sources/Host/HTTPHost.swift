@@ -8,13 +8,13 @@
 import Foundation
 
 @NetworkingActor
-final public class HTTPHost: Host {
+public final class HTTPHost: Host {
   private let baseURL: URL
   private let gateway: Gateway
   private let options: HTTPOptions?
   private let tracker: TrackerProtocol?
 
-  nonisolated public init(
+  public nonisolated init(
     baseURL: URL,
     gateway: Gateway,
     options: HTTPOptions? = nil,

@@ -8,14 +8,14 @@
 import Foundation
 
 @NetworkingActor
-final public class HTTPGateway: NSObject, Gateway {
+public final class HTTPGateway: NSObject, Gateway {
   public let session: URLSession
 
   private let gatewayOptions: HTTPOptions?
   private let proxy = WeakProxy()
   private var invalidateTask: Task<Void, Error>?
 
-  nonisolated public init(
+  public nonisolated init(
     configuration: URLSessionConfiguration = URLSessionConfiguration.default,
     options: HTTPOptions? = nil,
     queue: OperationQueue? = nil
