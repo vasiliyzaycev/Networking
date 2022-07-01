@@ -21,6 +21,16 @@ public final class HTTPRequestBuilder<Value> {
   public convenience init(
     method: HTTPMethod,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
+    keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
+  ) where Value: Decodable {
+    let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = keyDecodingStrategy
+    self.init(method: method, taskFactory: taskFactory, decoder: decoder)
+  }
+
+  public convenience init(
+    method: HTTPMethod,
+    taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     decoder: ResponseDecoder = JSONDecoder()
   ) where Value: Decodable {
     self.init(method: method, taskFactory: taskFactory) { data in
