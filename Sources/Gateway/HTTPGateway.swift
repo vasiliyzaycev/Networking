@@ -263,7 +263,8 @@ private extension HTTPGateway {
     sessionTask.completionHandler = { [unowned sessionTask] error in
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
       if let error = error {
-        continuation.resume(throwing: GatewayError.network(reason: error, url: responseURL))
+        let networkError = GatewayError.createNetworkError(error, url: responseURL)
+        continuation.resume(throwing: networkError)
         return
       }
       guard let response = sessionTask.response else {
@@ -293,5 +294,17 @@ private extension HTTPGateway {
     } else {
       session.finishTasksAndInvalidate()
     }
+  }
+}
+
+private extension GatewayError {
+  static func createNetworkError(_ error: Error, url: URL) -> GatewayError {
+    guard
+      let error = error as? URLError,
+      error.code == .notConnectedToInternet
+    else {
+      return .network(reason: error, url: url)
+    }
+    return .noNetwork(reason: error, url: url)
   }
 }

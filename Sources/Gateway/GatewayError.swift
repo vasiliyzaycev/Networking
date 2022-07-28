@@ -9,6 +9,7 @@ import Foundation
 
 public enum GatewayError: Error {
   case invalidGateway
+  case noNetwork(reason: Error, url: URL)
   case network(reason: Error, url: URL)
   case server(HTTPStatusCode: Int, url: URL?)
   case serverEmptyResponseData(url: URL?)
