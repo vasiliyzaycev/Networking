@@ -45,9 +45,7 @@ public final class HTTPGateway: NSObject, Gateway {
       return simulatedResponse
     }
     setupAllowingUntrustedSSLCertificates(for: sessionTask, options?.requestOptions)
-    return try await withCheckedThrowingContinuation { [weak self] continuation in
-      self?.start(task: sessionTask, hostURL, continuation)
-    }
+    return try await fetchResponse(task: sessionTask, hostURL)
   }
 
   public func invalidate(forced: Bool) async throws {
@@ -251,6 +249,22 @@ private extension HTTPGateway {
     sessionTask.allowUntrustedSSLCertificates = allowUntrustedSSLCertificates
   }
 
+  private func fetchResponse(
+    task sessionTask: URLSessionTask,
+    _ hostURL: URL
+  ) async throws -> HTTPResponse {
+    try await withTaskCancellationHandler { [unowned sessionTask] in
+      sessionTask.cancel()
+    } operation: {
+      try await withCheckedThrowingContinuation { [weak self] continuation in
+        guard let self = self else {
+          return continuation.resume(throwing: GatewayError.invalidGateway)
+        }
+        self.start(task: sessionTask, hostURL, continuation)
+      }
+    }
+  }
+
   private func start(
     task sessionTask: URLSessionTask,
     _ hostURL: URL,
@@ -294,17 +308,5 @@ private extension HTTPGateway {
     } else {
       session.finishTasksAndInvalidate()
     }
-  }
-}
-
-private extension GatewayError {
-  static func createNetworkError(_ error: Error, url: URL) -> GatewayError {
-    guard
-      let error = error as? URLError,
-      error.code == .notConnectedToInternet
-    else {
-      return .network(reason: error, url: url)
-    }
-    return .noNetwork(reason: error, url: url)
   }
 }
