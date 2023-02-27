@@ -24,7 +24,7 @@ public struct HTTPOptions {
     with target: HTTPOptions?
   ) -> HTTPOptions? {
     guard let source = source else { return target }
-    return HTTPOptions(
+    return Self(
       requestOptions: .merge(source.requestOptions, with: target?.requestOptions),
       responseSimulator: target?.responseSimulator ?? source.responseSimulator
     )

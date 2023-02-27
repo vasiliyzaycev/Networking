@@ -37,7 +37,7 @@ public final class HTTPHost: Host {
       hostOptions: options,
       extraOptions: extraOptions
     )
-    return try handle(response, for: request)
+    return try await handle(response, for: request)
   }
 }
 
@@ -45,9 +45,9 @@ private extension HTTPHost {
   private func handle<Value>(
     _ response: HTTPResponse,
     for request: HTTPRequest<Value>
-  ) throws -> Value {
+  ) async throws -> Value {
     do {
-      return try request.responseHandler(response)
+      return try await request.responseHandler(response)
     } catch {
       self.tracker?.track("Invalid server response!")
       throw error

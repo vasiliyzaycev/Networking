@@ -124,10 +124,10 @@ public final class HTTPRequestBuilder<Value> {
 
 public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
 public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
-public typealias HTTPDataHandler<Value> = (Data) throws -> Value
-public typealias HTTPOptionalDataHandler<Value> = (Data?) throws -> Value
+public typealias HTTPDataHandler<Value> = (Data) async throws -> Value
+public typealias HTTPOptionalDataHandler<Value> = (Data?) async throws -> Value
 public typealias HTTPCustomResponseHandler<Value> =
-  (HTTPResponseHandler<Value>, HTTPResponse) throws -> Value
+  (HTTPResponseHandler<Value>, HTTPResponse) async throws -> Value
 
 private extension HTTPRequestBuilder {
   private func createResponseHandler() -> HTTPResponseHandler<Value> {
@@ -136,19 +136,19 @@ private extension HTTPRequestBuilder {
     let optionalDataHandler = self.optionalDataHandler
     let responseHandler: HTTPResponseHandler<Value> = { response in
       try metadataHandler(response.metadata)
-      if let optionalDataHandler = optionalDataHandler {
-        return try optionalDataHandler(response.data)
-      } else if let dataHandler = dataHandler {
+      if let optionalDataHandler {
+        return try await optionalDataHandler(response.data)
+      } else if let dataHandler {
         guard let responseData = response.data else {
           throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
         }
-        return try dataHandler(responseData)
+        return try await dataHandler(responseData)
       }
       fatalError("All dataHandlers is nil")
     }
-    guard let customResponseHandler = customResponseHandler else { return responseHandler }
+    guard let customResponseHandler else { return responseHandler }
     return { response in
-      try customResponseHandler(responseHandler, response)
+      try await customResponseHandler(responseHandler, response)
     }
   }
 

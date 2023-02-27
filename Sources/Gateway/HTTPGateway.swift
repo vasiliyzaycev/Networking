@@ -254,14 +254,14 @@ private extension HTTPGateway {
     _ hostURL: URL
   ) async throws -> HTTPResponse {
     try await withTaskCancellationHandler { [unowned sessionTask] in
-      sessionTask.cancel()
-    } operation: {
       try await withCheckedThrowingContinuation { [weak self] continuation in
         guard let self = self else {
           return continuation.resume(throwing: GatewayError.invalidGateway)
         }
         self.start(task: sessionTask, hostURL, continuation)
       }
+    } onCancel: { [unowned sessionTask] in
+      sessionTask.cancel()
     }
   }
 

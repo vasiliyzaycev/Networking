@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,10 @@
 		BE21CD772837A63500011EAA /* NetworkingActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE21CD762837A63500011EAA /* NetworkingActor.swift */; };
 		BE22783A2838A49400154F49 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2278392838A49400154F49 /* NetworkingTests.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
+		BE47052B295C87CB00DAB976 /* HTTPRequestBuilder+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE47052A295C87CB00DAB976 /* HTTPRequestBuilder+download.swift */; };
+		BE5CDE9D29ABCF610066D32F /* LockIsolated.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */; };
+		BE5CDEA329ABD0690066D32F /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5CDEA129ABD0690066D32F /* Tracker.swift */; };
+		BE5CDEA429ABD0690066D32F /* TrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5CDEA229ABD0690066D32F /* TrackerProtocol.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
 		FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003526F55006007A2A57 /* Array+Extension.swift */; };
@@ -36,8 +40,6 @@
 		FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */; };
 		FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004B26F55007007A2A57 /* TaskFactory.swift */; };
 		FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004D26F55007007A2A57 /* AssociatedObject.swift */; };
-		FE22006626F55007007A2A57 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004F26F55007007A2A57 /* Tracker.swift */; };
-		FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22005026F55007007A2A57 /* TrackerProtocol.swift */; };
 		FE22FFA926F3E00F007A2A57 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE22FF9F26F3E00F007A2A57 /* Networking.framework */; };
 		FE22FFFB26F3E7A5007A2A57 /* Networking.h in Headers */ = {isa = PBXBuildFile; fileRef = FE22FFFA26F3E7A5007A2A57 /* Networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -61,6 +63,10 @@
 		BE21CD762837A63500011EAA /* NetworkingActor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingActor.swift; sourceTree = "<group>"; };
 		BE2278392838A49400154F49 /* NetworkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingTests.swift; path = Tests/NetworkingTests.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
+		BE47052A295C87CB00DAB976 /* HTTPRequestBuilder+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPRequestBuilder+download.swift"; sourceTree = "<group>"; };
+		BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockIsolated.swift; sourceTree = "<group>"; };
+		BE5CDEA129ABD0690066D32F /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		BE5CDEA229ABD0690066D32F /* TrackerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerProtocol.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
 		FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Extension.swift"; sourceTree = "<group>"; };
@@ -83,8 +89,6 @@
 		FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTaskFactory.swift; sourceTree = "<group>"; };
 		FE22004B26F55007007A2A57 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
 		FE22004D26F55007007A2A57 /* AssociatedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObject.swift; sourceTree = "<group>"; };
-		FE22004F26F55007007A2A57 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
-		FE22005026F55007007A2A57 /* TrackerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerProtocol.swift; sourceTree = "<group>"; };
 		FE22FF9F26F3E00F007A2A57 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE22FFA826F3E00F007A2A57 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE22FFC226F3E453007A2A57 /* NetworkingTestsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingTestsInfo.plist; path = InfoPlists/NetworkingTestsInfo.plist; sourceTree = "<group>"; };
@@ -140,6 +144,16 @@
 			path = Sources/Actor;
 			sourceTree = "<group>";
 		};
+		BE5CDEA029ABD0690066D32F /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				BE5CDEA129ABD0690066D32F /* Tracker.swift */,
+				BE5CDEA229ABD0690066D32F /* TrackerProtocol.swift */,
+			);
+			name = Tracker;
+			path = Sources/Tracker;
+			sourceTree = "<group>";
+		};
 		FE22000926F531E7007A2A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,8 +171,9 @@
 				FE22004226F55007007A2A57 /* Request */,
 				BE100AA8281C4D30002277C9 /* Response */,
 				FE22004926F55007007A2A57 /* TaskFactory */,
+				BE5CDEA029ABD0690066D32F /* Tracker */,
 				FE22003326F55006007A2A57 /* Extensions */,
-				FE22004C26F55007007A2A57 /* Utils */,
+				FE22004C26F55007007A2A57 /* Helpers */,
 				FE22FFFA26F3E7A5007A2A57 /* Networking.h */,
 				FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */,
 			);
@@ -207,6 +222,7 @@
 				FE22004526F55007007A2A57 /* Request.swift */,
 				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
 				FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */,
+				BE47052A295C87CB00DAB976 /* HTTPRequestBuilder+download.swift */,
 				FE22004626F55007007A2A57 /* HTTPMethod.swift */,
 				FE22004726F55007007A2A57 /* HTTPRequest.swift */,
 				BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */,
@@ -225,24 +241,15 @@
 			path = Sources/TaskFactory;
 			sourceTree = "<group>";
 		};
-		FE22004C26F55007007A2A57 /* Utils */ = {
+		FE22004C26F55007007A2A57 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				FE22004E26F55007007A2A57 /* Tracker */,
 				BE3565F42819BEBF0027269E /* WeakProxy.swift */,
 				FE22004D26F55007007A2A57 /* AssociatedObject.swift */,
+				BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */,
 			);
-			name = Utils;
-			path = Sources/Utils;
-			sourceTree = "<group>";
-		};
-		FE22004E26F55007007A2A57 /* Tracker */ = {
-			isa = PBXGroup;
-			children = (
-				FE22004F26F55007007A2A57 /* Tracker.swift */,
-				FE22005026F55007007A2A57 /* TrackerProtocol.swift */,
-			);
-			path = Tracker;
+			name = Helpers;
+			path = Sources/Helpers;
 			sourceTree = "<group>";
 		};
 		FE22FF9526F3E00F007A2A57 = {
@@ -382,6 +389,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		BE788A3428180EE700BFE0B4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -408,24 +416,26 @@
 				FE22005B26F55007007A2A57 /* HTTPHost.swift in Sources */,
 				FE22005C26F55007007A2A57 /* Host.swift in Sources */,
 				FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */,
+				BE5CDEA329ABD0690066D32F /* Tracker.swift in Sources */,
 				FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */,
 				FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */,
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
-				FE22006626F55007007A2A57 /* Tracker.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
+				BE5CDE9D29ABCF610066D32F /* LockIsolated.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
 				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
+				BE5CDEA429ABD0690066D32F /* TrackerProtocol.swift in Sources */,
 				BE100AAD281C4D5B002277C9 /* ResponseSimulator.swift in Sources */,
 				FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */,
-				FE22006726F55007007A2A57 /* TrackerProtocol.swift in Sources */,
 				BE100AAA281C4D30002277C9 /* HTTPResponse.swift in Sources */,
 				BE100AAE281C4D5B002277C9 /* HTTPResponseSimulator.swift in Sources */,
 				FE22005626F55007007A2A57 /* URLSessionTask+Extensions.swift in Sources */,
 				FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */,
 				FE22005F26F55007007A2A57 /* Request.swift in Sources */,
 				FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */,
+				BE47052B295C87CB00DAB976 /* HTTPRequestBuilder+download.swift in Sources */,
 				BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */,
 				FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */,
 				FE22005A26F55007007A2A57 /* Gateway.swift in Sources */,
@@ -508,7 +518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -566,7 +576,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

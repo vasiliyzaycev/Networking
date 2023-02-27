@@ -16,7 +16,7 @@ public struct HTTPRequest<Value>: Request {
   public init(
     method: HTTPMethod,
     options: HTTPRequestOptions? = nil,
-    responseHandler: @escaping (HTTPResponse) throws -> Value,
+    responseHandler: @escaping HTTPResponseHandler<Value>,
     taskFactory: TaskFactory
   ) {
     self.method = method
@@ -26,4 +26,4 @@ public struct HTTPRequest<Value>: Request {
   }
 }
 
-public typealias HTTPResponseHandler<Value> = (HTTPResponse) throws -> Value
+public typealias HTTPResponseHandler<Value> = (HTTPResponse) async throws -> Value
