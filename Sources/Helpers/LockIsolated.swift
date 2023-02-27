@@ -5,6 +5,8 @@
 //  Created by Vasiliy Zaycev on 26.02.2023.
 //
 
+import Foundation
+
 final class LockIsolated<Value: Sendable>: @unchecked Sendable {
   private var _value: Value
   private let lock = NSRecursiveLock()

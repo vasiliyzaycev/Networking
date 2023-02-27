@@ -5,6 +5,8 @@
 //  Created by Vasiliy Zaycev on 28.12.2022.
 //
 
+import Foundation
+
 extension HTTPRequestBuilder where Value == URL {
   public enum DownloadError: Error {
     case moveFile(url: URL, reason: Error)
