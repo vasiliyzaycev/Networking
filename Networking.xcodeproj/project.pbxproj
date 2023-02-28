@@ -39,7 +39,7 @@
 		FE22006226F55007007A2A57 /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004826F55007007A2A57 /* ResponseDecoder.swift */; };
 		FE22006326F55007007A2A57 /* HTTPTaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */; };
 		FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004B26F55007007A2A57 /* TaskFactory.swift */; };
-		FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004D26F55007007A2A57 /* AssociatedObject.swift */; };
+		FE22006526F55007007A2A57 /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22004D26F55007007A2A57 /* ObjectAssociation.swift */; };
 		FE22FFA926F3E00F007A2A57 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE22FF9F26F3E00F007A2A57 /* Networking.framework */; };
 		FE22FFFB26F3E7A5007A2A57 /* Networking.h in Headers */ = {isa = PBXBuildFile; fileRef = FE22FFFA26F3E7A5007A2A57 /* Networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -88,7 +88,7 @@
 		FE22004826F55007007A2A57 /* ResponseDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
 		FE22004A26F55007007A2A57 /* HTTPTaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTaskFactory.swift; sourceTree = "<group>"; };
 		FE22004B26F55007007A2A57 /* TaskFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFactory.swift; sourceTree = "<group>"; };
-		FE22004D26F55007007A2A57 /* AssociatedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObject.swift; sourceTree = "<group>"; };
+		FE22004D26F55007007A2A57 /* ObjectAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectAssociation.swift; sourceTree = "<group>"; };
 		FE22FF9F26F3E00F007A2A57 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE22FFA826F3E00F007A2A57 /* NetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE22FFC226F3E453007A2A57 /* NetworkingTestsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingTestsInfo.plist; path = InfoPlists/NetworkingTestsInfo.plist; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3565F42819BEBF0027269E /* WeakProxy.swift */,
-				FE22004D26F55007007A2A57 /* AssociatedObject.swift */,
+				FE22004D26F55007007A2A57 /* ObjectAssociation.swift */,
 				BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */,
 			);
 			name = Helpers;
@@ -418,7 +418,7 @@
 				FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */,
 				BE5CDEA329ABD0690066D32F /* Tracker.swift in Sources */,
 				FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */,
-				FE22006526F55007007A2A57 /* AssociatedObject.swift in Sources */,
+				FE22006526F55007007A2A57 /* ObjectAssociation.swift in Sources */,
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
@@ -525,6 +525,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -582,6 +583,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

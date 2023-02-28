@@ -8,14 +8,10 @@
 import Foundation
 
 extension URLSession {
-  private static var urlSessionInvalidateHandler: UInt8 = 0
+  private static let invalidateHandlerAssociation = ObjectAssociation<(Error?) -> Void>()
 
   var invalidateHandler: ((Error?) -> Void)? {
-    get {
-      AssociatedObject.get(key: &Self.urlSessionInvalidateHandler, from: self)
-    }
-    set {
-      AssociatedObject.set(value: newValue, key: &Self.urlSessionInvalidateHandler, to: self)
-    }
+    get { Self.invalidateHandlerAssociation[self] }
+    set { Self.invalidateHandlerAssociation[self] = newValue }
   }
 }

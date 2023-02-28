@@ -8,46 +8,36 @@
 import Foundation
 
 extension URLSessionTask {
-  private static var allowUntrustedSSLCertificates: UInt8 = 0
-  private static var completionHandlerKey: UInt8 = 0
-  private static var dataHandlerKey: UInt8 = 0
-  private static var uploadProgressKey: UInt8 = 0
-  private static var bodyStreamBuilderKey: UInt8 = 0
+  // swiftlint:disable:next legacy_objc_type
+  private static let allowUntrustedSSLAssociation = ObjectAssociation<NSNumber>()
+  private static let completionHandlerAssociation = ObjectAssociation<(Error?) -> Void>()
+  private static let dataHandlerAssociation = ObjectAssociation<(Data) -> Void>()
+  private static let uploadProgressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
+  private static let bodyStreamBuilderAssociation = ObjectAssociation<() -> InputStream>()
 
   var allowUntrustedSSLCertificates: Bool {
-    // swiftlint:disable legacy_objc_type
-    get {
-      let result = AssociatedObject<NSNumber>
-        .get(key: &Self.allowUntrustedSSLCertificates, from: self)
-      return result?.boolValue ?? false
-    }
-    set {
-      AssociatedObject.set(
-        value: NSNumber(value: newValue),
-        key: &Self.allowUntrustedSSLCertificates,
-        to: self
-      )
-    }
-    // swiftlint:enable legacy_objc_type
+    get { Self.allowUntrustedSSLAssociation[self]?.boolValue ?? false }
+    // swiftlint:disable:next legacy_objc_type
+    set { Self.allowUntrustedSSLAssociation[self] = NSNumber(value: newValue) }
   }
 
   var completionHandler: ((Error?) -> Void)? {
-    get { AssociatedObject.get(key: &Self.completionHandlerKey, from: self) }
-    set { AssociatedObject.set(value: newValue, key: &Self.completionHandlerKey, to: self) }
+    get { Self.completionHandlerAssociation[self] }
+    set { Self.completionHandlerAssociation[self] = newValue }
   }
 
   var dataHandler: ((Data) -> Void)? {
-    get { AssociatedObject.get(key: &Self.dataHandlerKey, from: self) }
-    set { AssociatedObject.set(value: newValue, key: &Self.dataHandlerKey, to: self) }
+    get { Self.dataHandlerAssociation[self] }
+    set { Self.dataHandlerAssociation[self] = newValue }
   }
 
   var uploadProgress: ((HTTPRequestProgress) -> Void)? {
-    get { AssociatedObject.get(key: &Self.uploadProgressKey, from: self) }
-    set { AssociatedObject.set(value: newValue, key: &Self.uploadProgressKey, to: self) }
+    get { Self.uploadProgressAssociation[self] }
+    set { Self.uploadProgressAssociation[self] = newValue }
   }
 
   var bodyStreamBuilder: (() -> InputStream)? {
-    get { AssociatedObject.get(key: &Self.bodyStreamBuilderKey, from: self) }
-    set { AssociatedObject.set(value: newValue, key: &Self.bodyStreamBuilderKey, to: self) }
+    get { Self.bodyStreamBuilderAssociation[self] }
+    set { Self.bodyStreamBuilderAssociation[self] = newValue }
   }
 }

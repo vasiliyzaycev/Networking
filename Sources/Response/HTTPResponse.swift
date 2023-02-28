@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct HTTPResponse {
+public struct HTTPResponse: Sendable {
   public let data: Data?
   public let metadata: HTTPURLResponse
 }

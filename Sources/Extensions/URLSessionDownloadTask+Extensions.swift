@@ -8,18 +8,16 @@
 import Foundation
 
 extension URLSessionDownloadTask {
-  private static var downloadCompletionHandlerKey: UInt8 = 0
-  private static var downloadProgressKey: UInt8 = 0
+  private static let downloadCompletionHandlerAssociation = ObjectAssociation<(URL) -> Void>()
+  private static let progressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
 
   var downloadCompletionHandler: ((URL) -> Void)? {
-    get { AssociatedObject.get(key: &Self.downloadCompletionHandlerKey, from: self) }
-    set {
-      AssociatedObject.set(value: newValue, key: &Self.downloadCompletionHandlerKey, to: self)
-    }
+    get { Self.downloadCompletionHandlerAssociation[self] }
+    set { Self.downloadCompletionHandlerAssociation[self] = newValue }
   }
 
   var downloadProgress: ((HTTPRequestProgress) -> Void)? {
-    get { AssociatedObject.get(key: &Self.downloadProgressKey, from: self) }
-    set { AssociatedObject.set(value: newValue, key: &Self.downloadProgressKey, to: self) }
+    get { Self.progressAssociation[self] }
+    set { Self.progressAssociation[self] = newValue }
   }
 }

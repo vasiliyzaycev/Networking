@@ -64,14 +64,17 @@ public final class HTTPGateway: NSObject, Gateway {
 extension WeakProxy: URLSessionDelegate {}
 
 extension HTTPGateway: URLSessionDelegate {
-  public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+  nonisolated public func urlSession(
+    _ session: URLSession,
+    didBecomeInvalidWithError error: Error?
+  ) {
     session.invalidateHandler?(error)
   }
 }
 
 extension HTTPGateway: URLSessionTaskDelegate {
   // Refuse redirection
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     willPerformHTTPRedirection response: HTTPURLResponse,
@@ -81,7 +84,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     completionHandler(nil)
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didReceive challenge: URLAuthenticationChallenge,
@@ -101,15 +104,15 @@ extension HTTPGateway: URLSessionTaskDelegate {
     )
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
-    needNewBodyStream completionHandler: @escaping (InputStream?) -> Void
+    needNewBodyStream completionHandler: @escaping @Sendable (InputStream?) -> Void
   ) {
     completionHandler(task.bodyStreamBuilder?())
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didSendBodyData bytesSent: Int64,
@@ -124,7 +127,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     )
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didCompleteWithError error: Error?
@@ -134,7 +137,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
 }
 
 extension HTTPGateway: URLSessionDataDelegate {
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     didReceive response: URLResponse,
@@ -143,7 +146,7 @@ extension HTTPGateway: URLSessionDataDelegate {
     completionHandler(URLSession.ResponseDisposition.allow)
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     didReceive data: Data
@@ -151,7 +154,7 @@ extension HTTPGateway: URLSessionDataDelegate {
     dataTask.dataHandler?(data)
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     willCacheResponse proposedResponse: CachedURLResponse,
@@ -162,7 +165,7 @@ extension HTTPGateway: URLSessionDataDelegate {
 }
 
 extension HTTPGateway: URLSessionDownloadDelegate {
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     downloadTask: URLSessionDownloadTask,
     didFinishDownloadingTo location: URL
@@ -170,7 +173,7 @@ extension HTTPGateway: URLSessionDownloadDelegate {
     downloadTask.downloadCompletionHandler?(location)
   }
 
-  public func urlSession(
+  nonisolated public func urlSession(
     _ session: URLSession,
     downloadTask: URLSessionDownloadTask,
     didWriteData bytesWritten: Int64,
@@ -253,16 +256,20 @@ private extension HTTPGateway {
     task sessionTask: URLSessionTask,
     _ hostURL: URL
   ) async throws -> HTTPResponse {
-    try await withTaskCancellationHandler { [unowned sessionTask] in
-      try await withCheckedThrowingContinuation { [weak self] continuation in
-        guard let self = self else {
-          return continuation.resume(throwing: GatewayError.invalidGateway)
+    try await { @Sendable in
+      try await withTaskCancellationHandler { [unowned sessionTask] in
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+          guard let self else {
+            return continuation.resume(throwing: GatewayError.invalidGateway)
+          }
+          Task { @NetworkingActor in
+            self.start(task: sessionTask, hostURL, continuation)
+          }
         }
-        self.start(task: sessionTask, hostURL, continuation)
+      } onCancel: { [unowned sessionTask] in
+        sessionTask.cancel()
       }
-    } onCancel: { [unowned sessionTask] in
-      sessionTask.cancel()
-    }
+    }()
   }
 
   private func start(
