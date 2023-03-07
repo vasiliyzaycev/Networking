@@ -15,28 +15,28 @@ extension URLSessionTask {
   private static let uploadProgressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
   private static let bodyStreamBuilderAssociation = ObjectAssociation<() -> InputStream>()
 
-  var allowUntrustedSSLCertificates: Bool {
+  public var allowUntrustedSSLCertificates: Bool {
     get { Self.allowUntrustedSSLAssociation[self]?.boolValue ?? false }
     // swiftlint:disable:next legacy_objc_type
     set { Self.allowUntrustedSSLAssociation[self] = NSNumber(value: newValue) }
   }
 
-  var completionHandler: ((Error?) -> Void)? {
+  public var completionHandler: ((Error?) -> Void)? {
     get { Self.completionHandlerAssociation[self] }
     set { Self.completionHandlerAssociation[self] = newValue }
   }
 
-  var dataHandler: ((Data) -> Void)? {
+  public var dataHandler: ((Data) -> Void)? {
     get { Self.dataHandlerAssociation[self] }
     set { Self.dataHandlerAssociation[self] = newValue }
   }
 
-  var uploadProgress: ((HTTPRequestProgress) -> Void)? {
+  public var uploadProgress: ((HTTPRequestProgress) -> Void)? {
     get { Self.uploadProgressAssociation[self] }
     set { Self.uploadProgressAssociation[self] = newValue }
   }
 
-  var bodyStreamBuilder: (() -> InputStream)? {
+  public var bodyStreamBuilder: (() -> InputStream)? {
     get { Self.bodyStreamBuilderAssociation[self] }
     set { Self.bodyStreamBuilderAssociation[self] = newValue }
   }

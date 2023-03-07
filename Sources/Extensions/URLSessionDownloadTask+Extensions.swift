@@ -11,12 +11,12 @@ extension URLSessionDownloadTask {
   private static let downloadCompletionHandlerAssociation = ObjectAssociation<(URL) -> Void>()
   private static let progressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
 
-  var downloadCompletionHandler: ((URL) -> Void)? {
+  public var downloadCompletionHandler: ((URL) -> Void)? {
     get { Self.downloadCompletionHandlerAssociation[self] }
     set { Self.downloadCompletionHandlerAssociation[self] = newValue }
   }
 
-  var downloadProgress: ((HTTPRequestProgress) -> Void)? {
+  public var downloadProgress: ((HTTPRequestProgress) -> Void)? {
     get { Self.progressAssociation[self] }
     set { Self.progressAssociation[self] = newValue }
   }
