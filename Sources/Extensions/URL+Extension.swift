@@ -11,7 +11,7 @@ extension URL {
   func urlByAppending(_ pathComponent: String?, queryItems: [URLQueryItem]?) -> URL {
     var url = self
     let path = pathComponent?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-    if let path = path {
+    if let path {
       assert(query == nil)
       url = appendingPathComponent(path)
     }

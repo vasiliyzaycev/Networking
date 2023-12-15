@@ -49,7 +49,7 @@ public final class HTTPGateway: NSObject, Gateway {
   }
 
   public func invalidate(forced: Bool) async throws {
-    if let invalidateTask = invalidateTask {
+    if let invalidateTask {
       return try await invalidateTask.value
     }
     self.invalidateTask = Task {
@@ -283,7 +283,7 @@ private extension HTTPGateway {
     }
     sessionTask.completionHandler = { [unowned sessionTask] error in
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
-      if let error = error {
+      if let error {
         let networkError = GatewayError.createNetworkError(error, url: responseURL)
         continuation.resume(throwing: networkError)
         return
@@ -304,7 +304,7 @@ private extension HTTPGateway {
 
   private func invalidate(forced: Bool, _ continuation: CheckedContinuation<Void, Error>) {
     session.invalidateHandler = { error in
-      if let error = error {
+      if let error {
         continuation.resume(throwing: error)
         return
       }

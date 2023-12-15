@@ -9,21 +9,23 @@ import Foundation
 
 @NetworkingActor
 public final class HTTPHost: Host {
+  public typealias ErrorHandler = (Error, HTTPResponse) -> Void
+
   private let baseURL: URL
   private let gateway: Gateway
   private let options: HTTPOptions?
-  private let tracker: TrackerProtocol?
+  private let errorHandler: ErrorHandler?
 
   public nonisolated init(
     baseURL: URL,
     gateway: Gateway,
     options: HTTPOptions? = nil,
-    tracker: TrackerProtocol? = nil
+    errorHandler: ErrorHandler? = nil
   ) {
     self.baseURL = baseURL
     self.gateway = gateway
     self.options = options
-    self.tracker = tracker
+    self.errorHandler = errorHandler
   }
 
   @discardableResult
@@ -49,7 +51,7 @@ private extension HTTPHost {
     do {
       return try await request.responseHandler(response)
     } catch {
-      self.tracker?.track("Invalid server response!")
+      self.errorHandler?(error, response)
       throw error
     }
   }
