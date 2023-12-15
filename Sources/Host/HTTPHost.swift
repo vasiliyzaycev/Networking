@@ -9,7 +9,7 @@ import Foundation
 
 @NetworkingActor
 public final class HTTPHost: Host {
-  public typealias ErrorHandler = (Error, HTTPResponse) -> Void
+  public typealias ErrorHandler = (Error, HTTPResponse?) -> Void
 
   private let baseURL: URL
   private let gateway: Gateway
@@ -33,17 +33,29 @@ public final class HTTPHost: Host {
     request: HTTPRequest<Value>,
     options extraOptions: HTTPOptions?
   ) async throws -> Value {
-    let response = try await gateway.push(
-      request: request,
-      hostURL: baseURL,
-      hostOptions: options,
-      extraOptions: extraOptions
-    )
+    let response = try await fetchResponse(request, extraOptions)
     return try await handle(response, for: request)
   }
 }
 
 private extension HTTPHost {
+  private func fetchResponse<Value>(
+    _ request: HTTPRequest<Value>,
+    _ extraOptions: HTTPOptions?
+  ) async throws -> HTTPResponse {
+    do {
+      return try await gateway.push(
+        request: request,
+        hostURL: baseURL,
+        hostOptions: options,
+        extraOptions: extraOptions
+      )
+    } catch {
+      self.errorHandler?(error, nil)
+      throw error
+    }
+  }
+
   private func handle<Value>(
     _ response: HTTPResponse,
     for request: HTTPRequest<Value>
