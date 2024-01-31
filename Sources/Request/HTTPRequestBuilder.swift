@@ -40,7 +40,7 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
-    taskFactory: TaskFactory,
+    taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     dataHandler: @escaping HTTPDataHandler<Value>
   ) {
     self.init(
@@ -166,7 +166,7 @@ private extension HTTPRequestBuilder {
         throw GatewayError.server(HTTPStatusCode: metadata.statusCode, url: metadata.url)
       }
     }
-    guard let customMetadataHandler = customMetadataHandler else { return metadataHandler }
+    guard let customMetadataHandler else { return metadataHandler }
     return { metadata in
       try customMetadataHandler(metadataHandler, metadata)
     }

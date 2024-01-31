@@ -13,6 +13,7 @@ public struct HTTPRequest<Value>: Request {
   public let responseHandler: HTTPResponseHandler<Value>
   public let taskFactory: TaskFactory
 
+  @_spi(Internals)
   public init(
     method: HTTPMethod,
     options: HTTPRequestOptions? = nil,
