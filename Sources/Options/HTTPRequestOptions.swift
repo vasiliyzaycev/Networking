@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct HTTPRequestOptions {
+public struct HTTPRequestOptions: Sendable {
   public let urlPath: String?
   public let queryItems: [URLQueryItem]?
   public let headers: [String: String]?

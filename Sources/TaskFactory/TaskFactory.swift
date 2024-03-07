@@ -8,6 +8,6 @@
 import Foundation
 
 @NetworkingActor
-public protocol TaskFactory {
+public protocol TaskFactory: Sendable {
   func createTask(request: URLRequest, gateway: Gateway) throws -> URLSessionTask
 }

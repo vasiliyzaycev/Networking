@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct HTTPOptions {
+public struct HTTPOptions: Sendable {
   public let requestOptions: HTTPRequestOptions?
   public let responseSimulator: ResponseSimulator?
 

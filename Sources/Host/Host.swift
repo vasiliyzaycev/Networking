@@ -8,7 +8,7 @@
 import Foundation
 
 @NetworkingActor
-public protocol Host {
+public protocol Host: Sendable {
   @discardableResult
   func push<Value>(
     request: HTTPRequest<Value>,

@@ -9,7 +9,7 @@ import Foundation
 
 @NetworkingActor
 public final class HTTPHost: Host {
-  public typealias ErrorHandler = (Error, HTTPResponse?) -> Void
+  public typealias ErrorHandler = @Sendable (Error, HTTPResponse?) -> Void
 
   private let baseURL: URL
   private let gateway: Gateway

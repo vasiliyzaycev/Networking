@@ -8,11 +8,13 @@
 import Foundation
 
 public struct HTTPTaskFactory: TaskFactory {
-  private let factory: @NetworkingActor (URLRequest, Gateway) throws -> URLSessionTask
+  public typealias Factory = @NetworkingActor @Sendable (
+    URLRequest, Gateway
+  ) throws -> URLSessionTask
 
-  nonisolated public init(
-    _ factory: @escaping @NetworkingActor (URLRequest, Gateway) throws -> URLSessionTask
-  ) {
+  private let factory: Factory
+
+  nonisolated public init(_ factory: @escaping Factory) {
     self.factory = factory
   }
 

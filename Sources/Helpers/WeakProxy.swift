@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class WeakProxy: NSObject {
+final class WeakProxy: NSObject, @unchecked Sendable {
   weak var object: NSObject?
 
   init(object: NSObject? = nil) {

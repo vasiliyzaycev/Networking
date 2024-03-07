@@ -8,7 +8,7 @@
 import Foundation
 
 public struct HTTPResponseSimulator: ResponseSimulator {
-  public typealias Simulator = (Request, URL, HTTPRequestOptions?) -> HTTPResponse?
+  public typealias Simulator = @Sendable (Request, URL, HTTPRequestOptions?) -> HTTPResponse?
 
   /// Value in [0..100] range which specifies probability percent of the failure simulation.
   /// - Value 0 means that simulation is off.

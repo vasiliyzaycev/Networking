@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol ResponseSimulator {
+public protocol ResponseSimulator: Sendable {
   func probeSimulation(
     for request: Request,
     hostURL: URL,

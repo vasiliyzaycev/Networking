@@ -8,7 +8,7 @@
 import Foundation
 
 @NetworkingActor
-public protocol Gateway {
+public protocol Gateway: Sendable {
   nonisolated var session: URLSession { get }
 
   @discardableResult
