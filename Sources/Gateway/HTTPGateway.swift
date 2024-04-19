@@ -143,7 +143,11 @@ extension HTTPGateway: URLSessionDataDelegate {
     didReceive response: URLResponse,
     completionHandler: @escaping (URLSession.ResponseDisposition) -> Void
   ) {
-    completionHandler(URLSession.ResponseDisposition.allow)
+    if let response = response as? HTTPURLResponse, response.statusCode / 100 == 2 {
+      completionHandler(.allow)
+      return
+    }
+    completionHandler(.cancel)
   }
 
   public func urlSession(
