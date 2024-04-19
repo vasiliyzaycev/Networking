@@ -8,16 +8,28 @@
 import Foundation
 
 extension URLSessionDownloadTask {
-  private static let downloadCompletionHandlerAssociation = ObjectAssociation<(URL) -> Void>()
-  private static let progressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
+  public typealias ProgressHandler = @Sendable (HTTPRequestProgress) -> Void
+  public typealias TempFileHandler = @Sendable (URL) throws -> URL
 
-  public var downloadCompletionHandler: ((URL) -> Void)? {
-    get { Self.downloadCompletionHandlerAssociation[self] }
-    set { Self.downloadCompletionHandlerAssociation[self] = newValue }
+  nonisolated(unsafe) private static let downloadedFileAssociation =
+    ObjectAssociation<URL>()
+  nonisolated(unsafe) private static let fileHandlerAssociation =
+    ObjectAssociation<TempFileHandler>()
+  nonisolated(unsafe) private static let progressAssociation =
+    ObjectAssociation<ProgressHandler>()
+
+  public var downloadedFile: URL? {
+    get { Self.downloadedFileAssociation[self] }
+    set { Self.downloadedFileAssociation[self] = newValue }
   }
 
-  public var downloadProgress: ((HTTPRequestProgress) -> Void)? {
+  public var downloadProgress: ProgressHandler? {
     get { Self.progressAssociation[self] }
     set { Self.progressAssociation[self] = newValue }
+  }
+
+  public var fileHandler: TempFileHandler? {
+    get { Self.fileHandlerAssociation[self] }
+    set { Self.fileHandlerAssociation[self] = newValue }
   }
 }

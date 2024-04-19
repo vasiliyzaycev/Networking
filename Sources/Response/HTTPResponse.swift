@@ -9,5 +9,6 @@ import Foundation
 
 public struct HTTPResponse: Sendable {
   public let data: Data?
+  public let downloadedFile: URL?
   public let metadata: HTTPURLResponse
 }

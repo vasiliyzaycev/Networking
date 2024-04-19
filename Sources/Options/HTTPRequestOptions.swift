@@ -47,17 +47,14 @@ public struct HTTPRequestOptions: Sendable {
     )
   }
 
-  public static func merge(
-    _ source: HTTPRequestOptions?,
-    with target: HTTPRequestOptions?
-  ) -> HTTPRequestOptions? {
+  public static func merge(_ source: Self?, with target: Self?) -> Self? {
     guard let source = source else { return target }
     return source.merge(with: target)
   }
 }
 
 private extension HTTPRequestOptions {
-  private func merge(with options: HTTPRequestOptions?) -> HTTPRequestOptions {
+  private func merge(with options: Self?) -> Self {
     guard let options = options else { return self }
     return HTTPRequestOptions(
       urlPath: mergeURLPaths(with: options.urlPath),

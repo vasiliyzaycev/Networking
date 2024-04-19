@@ -13,21 +13,9 @@ extension HTTPRequestBuilder where Value == URL {
     case emptyFileURL
   }
 
-  public struct FileMover {
-    private let move: (URL) throws -> URL
-
-    public init(_ move: @escaping (URL) throws -> URL) {
-      self.move = move
-    }
-
-    public func callAsFunction(_ url: URL) throws -> URL {
-      try move(url)
-    }
-  }
-
   public static func download(
     method: HTTPMethod = .get,
-    downloadProgress: ((HTTPRequestProgress) -> Void)? = nil,
+    downloadProgress: URLSessionDownloadTask.ProgressHandler? = nil,
     moveFileToPermanentLocation: FileMover = .default
   ) -> Self {
     let downloadResult = LockIsolated<Result<URL, DownloadError>>(.failure(.emptyFileURL))
@@ -36,13 +24,14 @@ extension HTTPRequestBuilder where Value == URL {
       taskFactory: HTTPTaskFactory.downloadTaskFactory(
         downloadProgress: downloadProgress,
         fileHandler: { fileURL in
-          downloadResult.value = {
-            do {
-              return .success(try moveFileToPermanentLocation(fileURL))
-            } catch {
-              return .failure(.moveFile(url: fileURL, reason: error))
-            }
-          }()
+          do {
+            let resultURL = try moveFileToPermanentLocation(fileURL)
+            downloadResult.value = .success(resultURL)
+            return resultURL
+          } catch {
+            downloadResult.value = .failure(.moveFile(url: fileURL, reason: error))
+            throw error
+          }
         }
       ),
       dataHandler: { _ in
@@ -52,23 +41,5 @@ extension HTTPRequestBuilder where Value == URL {
         }
       }
     )
-  }
-}
-
-extension HTTPRequestBuilder.FileMover where Value == URL {
-  public static let `default`: Self = .init { tempFileURL in
-    let newURL = FileManager.default
-      .documentsDirectoryURL
-      .appendingPathComponent(UUID().uuidString)
-    try FileManager.default.moveItem(at: tempFileURL, to: newURL)
-    return newURL
-  }
-}
-
-private extension FileManager {
-  var documentsDirectoryURL: URL {
-    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
   }
 }

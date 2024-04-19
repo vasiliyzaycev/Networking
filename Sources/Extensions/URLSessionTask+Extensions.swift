@@ -8,12 +8,16 @@
 import Foundation
 
 extension URLSessionTask {
-  // swiftlint:disable:next legacy_objc_type
-  private static let allowUntrustedSSLAssociation = ObjectAssociation<NSNumber>()
-  private static let completionHandlerAssociation = ObjectAssociation<(Error?) -> Void>()
-  private static let dataHandlerAssociation = ObjectAssociation<(Data) -> Void>()
-  private static let uploadProgressAssociation = ObjectAssociation<(HTTPRequestProgress) -> Void>()
-  private static let bodyStreamBuilderAssociation = ObjectAssociation<() -> InputStream>()
+  nonisolated(unsafe) private static let allowUntrustedSSLAssociation =
+    ObjectAssociation<NSNumber>() // swiftlint:disable:this legacy_objc_type
+  nonisolated(unsafe) private static let completionHandlerAssociation =
+    ObjectAssociation<(Error?) -> Void>()
+  nonisolated(unsafe) private static let dataHandlerAssociation =
+    ObjectAssociation<(Data) -> Void>()
+  nonisolated(unsafe) private static let uploadProgressAssociation =
+    ObjectAssociation<(HTTPRequestProgress) -> Void>()
+  nonisolated(unsafe) private static let bodyStreamBuilderAssociation =
+    ObjectAssociation<() -> InputStream>()
 
   public var allowUntrustedSSLCertificates: Bool {
     get { Self.allowUntrustedSSLAssociation[self]?.boolValue ?? false }

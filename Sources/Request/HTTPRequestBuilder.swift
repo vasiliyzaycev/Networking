@@ -9,6 +9,7 @@ import Foundation
 
 public final class HTTPRequestBuilder<Value> {
   private let method: HTTPMethod
+  private let fileRemover: FileRemover
   private let taskFactory: TaskFactory
   private let dataHandler: HTTPDataHandler<Value>?
   private let optionalDataHandler: HTTPOptionalDataHandler<Value>?
@@ -20,6 +21,7 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
   ) where Value: Decodable {
@@ -30,6 +32,7 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     decoder: ResponseDecoder = JSONDecoder()
   ) where Value: Decodable {
@@ -40,11 +43,13 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     dataHandler: @escaping HTTPDataHandler<Value>
   ) {
     self.init(
       method: method,
+      fileRemover: fileRemover,
       taskFactory: taskFactory,
       dataHandler: dataHandler,
       optionalDataHandler: nil
@@ -53,11 +58,13 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory,
     optionalDataHandler: @escaping HTTPOptionalDataHandler<Value>
   ) {
     self.init(
       method: method,
+      fileRemover: fileRemover,
       taskFactory: taskFactory,
       dataHandler: nil,
       optionalDataHandler: optionalDataHandler
@@ -77,11 +84,13 @@ public final class HTTPRequestBuilder<Value> {
 
   private init(
     method: HTTPMethod,
+    fileRemover: FileRemover,
     taskFactory: TaskFactory,
     dataHandler: HTTPDataHandler<Value>?,
     optionalDataHandler: HTTPOptionalDataHandler<Value>?
   ) {
     self.method = method
+    self.fileRemover = fileRemover
     self.taskFactory = taskFactory
     self.dataHandler = dataHandler
     self.optionalDataHandler = optionalDataHandler
@@ -134,11 +143,17 @@ private extension HTTPRequestBuilder {
     let metadataHandler = createMetadataHandler()
     let dataHandler = self.dataHandler
     let optionalDataHandler = self.optionalDataHandler
-    let responseHandler: HTTPResponseHandler<Value> = { response in
-      try metadataHandler(response.metadata)
+    let responseHandler: HTTPResponseHandler<Value> = { [fileRemover] response in
+      do {
+        try metadataHandler(response.metadata)
+      } catch {
+        fileRemover.remove(response.downloadedFile)
+        throw error
+      }
       if let optionalDataHandler {
         return try await optionalDataHandler(response.data)
-      } else if let dataHandler {
+      }
+      if let dataHandler {
         guard let responseData = response.data else {
           throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
         }

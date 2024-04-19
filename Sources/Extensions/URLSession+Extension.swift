@@ -8,7 +8,8 @@
 import Foundation
 
 extension URLSession {
-  private static let invalidateHandlerAssociation = ObjectAssociation<(Error?) -> Void>()
+  nonisolated(unsafe) private static let invalidateHandlerAssociation =
+    ObjectAssociation<(Error?) -> Void>()
 
   var invalidateHandler: ((Error?) -> Void)? {
     get { Self.invalidateHandlerAssociation[self] }
