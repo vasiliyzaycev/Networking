@@ -67,7 +67,7 @@ public final class HTTPGateway: NSObject, Gateway {
 extension WeakProxy: URLSessionDelegate {}
 
 extension HTTPGateway: URLSessionDelegate {
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     didBecomeInvalidWithError error: Error?
   ) {
@@ -77,7 +77,7 @@ extension HTTPGateway: URLSessionDelegate {
 
 extension HTTPGateway: URLSessionTaskDelegate {
   // Refuse redirection
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     willPerformHTTPRedirection response: HTTPURLResponse,
@@ -87,7 +87,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     completionHandler(nil)
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didReceive challenge: URLAuthenticationChallenge,
@@ -104,7 +104,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     completionHandler(.useCredential, URLCredential(trust: serverTrust))
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     needNewBodyStream completionHandler: @escaping @Sendable (InputStream?) -> Void
@@ -112,7 +112,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     completionHandler(task.bodyStreamBuilder?())
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didSendBodyData bytesSent: Int64,
@@ -127,7 +127,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
     )
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     task: URLSessionTask,
     didCompleteWithError error: Error?
@@ -137,7 +137,7 @@ extension HTTPGateway: URLSessionTaskDelegate {
 }
 
 extension HTTPGateway: URLSessionDataDelegate {
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     didReceive response: URLResponse,
@@ -146,7 +146,7 @@ extension HTTPGateway: URLSessionDataDelegate {
     completionHandler(.allow)
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     didReceive data: Data
@@ -154,7 +154,7 @@ extension HTTPGateway: URLSessionDataDelegate {
     dataTask.dataHandler?(data)
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     dataTask: URLSessionDataTask,
     willCacheResponse proposedResponse: CachedURLResponse,
@@ -165,7 +165,7 @@ extension HTTPGateway: URLSessionDataDelegate {
 }
 
 extension HTTPGateway: URLSessionDownloadDelegate {
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     downloadTask: URLSessionDownloadTask,
     didFinishDownloadingTo location: URL
@@ -176,7 +176,7 @@ extension HTTPGateway: URLSessionDownloadDelegate {
       } ?? .failure(HTTPDownloadError.fileHandlerMissing)
   }
 
-  public func urlSession(
+  public nonisolated func urlSession(
     _ session: URLSession,
     downloadTask: URLSessionDownloadTask,
     didWriteData bytesWritten: Int64,

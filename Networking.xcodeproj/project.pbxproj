@@ -19,6 +19,11 @@
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		BEDFE3A22BD300C800BE3504 /* FileRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A02BD300C800BE3504 /* FileRemover.swift */; };
 		BEDFE3A32BD300C800BE3504 /* FileMover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A12BD300C800BE3504 /* FileMover.swift */; };
+		BEDFE3AA2BD58E6A00BE3504 /* HTTPRequest+common.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A42BD58E6A00BE3504 /* HTTPRequest+common.swift */; };
+		BEDFE3AB2BD58E6A00BE3504 /* HTTPRequest+delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A52BD58E6A00BE3504 /* HTTPRequest+delete.swift */; };
+		BEDFE3AC2BD58E6A00BE3504 /* HTTPRequest+get.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A62BD58E6A00BE3504 /* HTTPRequest+get.swift */; };
+		BEDFE3AD2BD58E6A00BE3504 /* HTTPRequest+post.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A72BD58E6A00BE3504 /* HTTPRequest+post.swift */; };
+		BEDFE3AE2BD58E6A00BE3504 /* HTTPRequest+put.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A82BD58E6A00BE3504 /* HTTPRequest+put.swift */; };
 		FE22005126F55007007A2A57 /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */; };
 		FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003526F55006007A2A57 /* Array+Extension.swift */; };
 		FE22005326F55007007A2A57 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE22003626F55006007A2A57 /* URLSession+Extension.swift */; };
@@ -66,6 +71,11 @@
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		BEDFE3A02BD300C800BE3504 /* FileRemover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRemover.swift; sourceTree = "<group>"; };
 		BEDFE3A12BD300C800BE3504 /* FileMover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMover.swift; sourceTree = "<group>"; };
+		BEDFE3A42BD58E6A00BE3504 /* HTTPRequest+common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPRequest+common.swift"; sourceTree = "<group>"; };
+		BEDFE3A52BD58E6A00BE3504 /* HTTPRequest+delete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPRequest+delete.swift"; sourceTree = "<group>"; };
+		BEDFE3A62BD58E6A00BE3504 /* HTTPRequest+get.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPRequest+get.swift"; sourceTree = "<group>"; };
+		BEDFE3A72BD58E6A00BE3504 /* HTTPRequest+post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPRequest+post.swift"; sourceTree = "<group>"; };
+		BEDFE3A82BD58E6A00BE3504 /* HTTPRequest+put.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPRequest+put.swift"; sourceTree = "<group>"; };
 		FE22002B26F5495E007A2A57 /* NetworkingInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = NetworkingInfo.plist; path = InfoPlists/NetworkingInfo.plist; sourceTree = "<group>"; };
 		FE22003426F55006007A2A57 /* HTTPURLResponse+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Extension.swift"; sourceTree = "<group>"; };
 		FE22003526F55006007A2A57 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -142,6 +152,18 @@
 			path = Sources/Actor;
 			sourceTree = "<group>";
 		};
+		BEDFE3A92BD58E6A00BE3504 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BEDFE3A42BD58E6A00BE3504 /* HTTPRequest+common.swift */,
+				BEDFE3A52BD58E6A00BE3504 /* HTTPRequest+delete.swift */,
+				BEDFE3A62BD58E6A00BE3504 /* HTTPRequest+get.swift */,
+				BEDFE3A72BD58E6A00BE3504 /* HTTPRequest+post.swift */,
+				BEDFE3A82BD58E6A00BE3504 /* HTTPRequest+put.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FE22000926F531E7007A2A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +228,7 @@
 		FE22004226F55007007A2A57 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				BEDFE3A92BD58E6A00BE3504 /* Extensions */,
 				FE22004526F55007007A2A57 /* Request.swift */,
 				FE22004826F55007007A2A57 /* ResponseDecoder.swift */,
 				FE22004426F55007007A2A57 /* HTTPRequestBuilder.swift */,
@@ -405,17 +428,22 @@
 				FE22005C26F55007007A2A57 /* Host.swift in Sources */,
 				FE22005526F55007007A2A57 /* URLSessionDownloadTask+Extensions.swift in Sources */,
 				FE22005226F55007007A2A57 /* Array+Extension.swift in Sources */,
+				BEDFE3AD2BD58E6A00BE3504 /* HTTPRequest+post.swift in Sources */,
 				FE22006526F55007007A2A57 /* ObjectAssociation.swift in Sources */,
 				FE22005826F55007007A2A57 /* HTTPGateway.swift in Sources */,
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
+				BEDFE3AB2BD58E6A00BE3504 /* HTTPRequest+delete.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
+				BEDFE3AE2BD58E6A00BE3504 /* HTTPRequest+put.swift in Sources */,
 				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
 				BE100AAD281C4D5B002277C9 /* ResponseSimulator.swift in Sources */,
+				BEDFE3AC2BD58E6A00BE3504 /* HTTPRequest+get.swift in Sources */,
 				FE22006026F55007007A2A57 /* HTTPMethod.swift in Sources */,
 				BE100AAA281C4D30002277C9 /* HTTPResponse.swift in Sources */,
 				BE100AAE281C4D5B002277C9 /* HTTPResponseSimulator.swift in Sources */,
+				BEDFE3AA2BD58E6A00BE3504 /* HTTPRequest+common.swift in Sources */,
 				FE22005626F55007007A2A57 /* URLSessionTask+Extensions.swift in Sources */,
 				BEDFE3A22BD300C800BE3504 /* FileRemover.swift in Sources */,
 				BEDFE3A32BD300C800BE3504 /* FileMover.swift in Sources */,

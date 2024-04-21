@@ -1,5 +1,5 @@
 //
-//  Method.swift
+//  HTTPMethod.swift
 //  Networking
 //
 //  Created by Vasiliy Zaycev on 31.08.2021.

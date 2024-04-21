@@ -1,5 +1,5 @@
 //
-//  Request.swift
+//  HTTPRequest.swift
 //  NetworkService
 //
 //  Created by Vasiliy Zaycev on 22.08.2021.
