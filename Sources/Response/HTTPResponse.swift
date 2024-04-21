@@ -8,7 +8,9 @@
 import Foundation
 
 public struct HTTPResponse: Sendable {
+  public typealias DownloadedFile = Result<URL, any Error>
+
   public let data: Data?
-  public let downloadedFile: URL?
+  public let downloadedFile: DownloadedFile?
   public let metadata: HTTPURLResponse
 }

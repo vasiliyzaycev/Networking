@@ -1,5 +1,5 @@
 //
-//  RequestBuilder.swift
+//  HTTPRequestBuilder.swift
 //  Networking
 //
 //  Created by Vasiliy Zaycev on 02.09.2021.
@@ -133,37 +133,44 @@ public final class HTTPRequestBuilder<Value> {
 
 public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
 public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
+public typealias HTTPMetadataHandlerWithCleanup = (
+  HTTPURLResponse,
+  HTTPResponse.DownloadedFile?
+) throws -> Void
 public typealias HTTPDataHandler<Value> = (Data) async throws -> Value
 public typealias HTTPOptionalDataHandler<Value> = (Data?) async throws -> Value
-public typealias HTTPCustomResponseHandler<Value> =
-  (HTTPResponseHandler<Value>, HTTPResponse) async throws -> Value
+public typealias HTTPCustomResponseHandler<Value> = (
+  HTTPMetadataHandlerWithCleanup,
+  FileRemover,
+  HTTPResponseHandler<Value>,
+  HTTPResponse
+) async throws -> Value
 
 private extension HTTPRequestBuilder {
   private func createResponseHandler() -> HTTPResponseHandler<Value> {
     let metadataHandler = createMetadataHandler()
-    let dataHandler = self.dataHandler
-    let optionalDataHandler = self.optionalDataHandler
-    let responseHandler: HTTPResponseHandler<Value> = { [fileRemover] response in
+    let metadataHandlerWithCleanup = { [fileRemover] metadata, file in
       do {
-        try metadataHandler(response.metadata)
+        try metadataHandler(metadata)
       } catch {
-        fileRemover.remove(response.downloadedFile)
+        fileRemover.remove(file: file)
         throw error
       }
-      if let optionalDataHandler {
-        return try await optionalDataHandler(response.data)
-      }
-      if let dataHandler {
-        guard let responseData = response.data else {
-          throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
-        }
-        return try await dataHandler(responseData)
-      }
-      fatalError("All dataHandlers is nil")
     }
-    guard let customResponseHandler else { return responseHandler }
+    let dataHandler = createDataHandler()
+    if let customResponseHandler {
+      return { [fileRemover] response in
+        try await customResponseHandler(
+          metadataHandlerWithCleanup,
+          fileRemover,
+          dataHandler,
+          response
+        )
+      }
+    }
     return { response in
-      try await customResponseHandler(responseHandler, response)
+      try metadataHandlerWithCleanup(response.metadata, response.downloadedFile)
+      return try await dataHandler(response)
     }
   }
 
@@ -184,6 +191,23 @@ private extension HTTPRequestBuilder {
     guard let customMetadataHandler else { return metadataHandler }
     return { metadata in
       try customMetadataHandler(metadataHandler, metadata)
+    }
+  }
+
+  private func createDataHandler() -> HTTPResponseHandler<Value> {
+    let dataHandler = self.dataHandler
+    let optionalDataHandler = self.optionalDataHandler
+    return { response in
+      if let optionalDataHandler {
+        return try await optionalDataHandler(response.data)
+      }
+      if let dataHandler {
+        guard let responseData = response.data else {
+          throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
+        }
+        return try await dataHandler(responseData)
+      }
+      fatalError("All dataHandlers is nil")
     }
   }
 }

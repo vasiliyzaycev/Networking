@@ -1,5 +1,5 @@
 //
-//  r+download.swift
+//  HTTPRequestBuilder+download.swift
 //  Networking
 //
 //  Created by Vasiliy Zaycev on 28.12.2022.
@@ -9,8 +9,7 @@ import Foundation
 
 extension HTTPRequestBuilder where Value == URL {
   public enum DownloadError: Error {
-    case moveFile(url: URL, reason: Error)
-    case emptyFileURL
+    case missingFileResult
   }
 
   public static func download(
@@ -18,28 +17,22 @@ extension HTTPRequestBuilder where Value == URL {
     downloadProgress: URLSessionDownloadTask.ProgressHandler? = nil,
     moveFileToPermanentLocation: FileMover = .default
   ) -> Self {
-    let downloadResult = LockIsolated<Result<URL, DownloadError>>(.failure(.emptyFileURL))
-    return Self(
+    let result = Self(
       method: method,
       taskFactory: HTTPTaskFactory.downloadTaskFactory(
         downloadProgress: downloadProgress,
-        fileHandler: { fileURL in
-          do {
-            let resultURL = try moveFileToPermanentLocation(fileURL)
-            downloadResult.value = .success(resultURL)
-            return resultURL
-          } catch {
-            downloadResult.value = .failure(.moveFile(url: fileURL, reason: error))
-            throw error
-          }
-        }
+        fileHandler: moveFileToPermanentLocation.move
       ),
       dataHandler: { _ in
-        switch downloadResult.value {
-        case .success(let fileURL): return fileURL
-        case .failure(let error): throw error
-        }
+        fatalError("For this request dataHandler should not be called")
       }
     )
+    return result.with { metadataHandlerWithCleanup, _, _, response in
+      try metadataHandlerWithCleanup(response.metadata, response.downloadedFile)
+      guard let fileResult = response.downloadedFile else {
+        throw DownloadError.missingFileResult
+      }
+      return try fileResult.get()
+    }
   }
 }

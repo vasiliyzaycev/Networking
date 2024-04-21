@@ -1,21 +1,17 @@
 //
-//  File.swift
-//  
+//  FileMover.swift
+//  Networking
 //
-//  Created by Василий Зайцев on 19.04.2024.
+//  Created by Vasiliy Zaycev on 19.04.2024.
 //
 
 import Foundation
 
 public struct FileMover: Sendable {
-  private let move: @Sendable (URL) throws -> URL
+  public let move: @Sendable (URL) throws -> URL
 
   public init(_ move: @escaping @Sendable (URL) throws -> URL) {
     self.move = move
-  }
-
-  public func callAsFunction(_ url: URL) throws -> URL {
-    try move(url)
   }
 }
 

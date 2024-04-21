@@ -16,7 +16,6 @@
 		BE22783A2838A49400154F49 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2278392838A49400154F49 /* NetworkingTests.swift */; };
 		BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3565F42819BEBF0027269E /* WeakProxy.swift */; };
 		BE47052B295C87CB00DAB976 /* HTTPRequestBuilder+download.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE47052A295C87CB00DAB976 /* HTTPRequestBuilder+download.swift */; };
-		BE5CDE9D29ABCF610066D32F /* LockIsolated.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */; };
 		BE788A3728182A6800BFE0B4 /* HTTPRequestProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */; };
 		BEDFE3A22BD300C800BE3504 /* FileRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A02BD300C800BE3504 /* FileRemover.swift */; };
 		BEDFE3A32BD300C800BE3504 /* FileMover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDFE3A12BD300C800BE3504 /* FileMover.swift */; };
@@ -64,7 +63,6 @@
 		BE2278392838A49400154F49 /* NetworkingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkingTests.swift; path = Tests/NetworkingTests.swift; sourceTree = "<group>"; };
 		BE3565F42819BEBF0027269E /* WeakProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakProxy.swift; sourceTree = "<group>"; };
 		BE47052A295C87CB00DAB976 /* HTTPRequestBuilder+download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPRequestBuilder+download.swift"; sourceTree = "<group>"; };
-		BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockIsolated.swift; sourceTree = "<group>"; };
 		BE788A3628182A6800BFE0B4 /* HTTPRequestProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestProgress.swift; sourceTree = "<group>"; };
 		BEDFE3A02BD300C800BE3504 /* FileRemover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRemover.swift; sourceTree = "<group>"; };
 		BEDFE3A12BD300C800BE3504 /* FileMover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileMover.swift; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 				BEDFE3A02BD300C800BE3504 /* FileRemover.swift */,
 				BE3565F42819BEBF0027269E /* WeakProxy.swift */,
 				FE22004D26F55007007A2A57 /* ObjectAssociation.swift */,
-				BE5CDE9C29ABCF610066D32F /* LockIsolated.swift */,
 			);
 			name = Helpers;
 			path = Sources/Helpers;
@@ -413,7 +410,6 @@
 				BE3565F52819BEBF0027269E /* WeakProxy.swift in Sources */,
 				FE22006426F55007007A2A57 /* TaskFactory.swift in Sources */,
 				FE22005426F55007007A2A57 /* URL+Extension.swift in Sources */,
-				BE5CDE9D29ABCF610066D32F /* LockIsolated.swift in Sources */,
 				FE22006126F55007007A2A57 /* HTTPRequest.swift in Sources */,
 				FE22005E26F55007007A2A57 /* HTTPRequestBuilder.swift in Sources */,
 				BE100AAD281C4D5B002277C9 /* ResponseSimulator.swift in Sources */,

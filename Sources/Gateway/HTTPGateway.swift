@@ -170,7 +170,8 @@ extension HTTPGateway: URLSessionDownloadDelegate {
     downloadTask: URLSessionDownloadTask,
     didFinishDownloadingTo location: URL
   ) {
-    downloadTask.downloadedFile = try? downloadTask.fileHandler?(location)
+    guard let fileHandler = downloadTask.fileHandler else { return }
+    downloadTask.downloadedFile = Result { try fileHandler(location) }
   }
 
   public func urlSession(
@@ -283,7 +284,7 @@ private extension HTTPGateway {
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
       let file = (sessionTask as? URLSessionDownloadTask)?.downloadedFile
       if let error {
-        fileRemover.remove(file)
+        fileRemover.remove(file: file)
         continuation.resume(throwing: GatewayError.createGatewayError(error, url: responseURL))
         return
       }
