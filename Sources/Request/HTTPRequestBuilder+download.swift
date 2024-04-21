@@ -7,11 +7,13 @@
 
 import Foundation
 
-extension HTTPRequestBuilder where Value == URL {
-  public enum DownloadError: Error {
-    case missingFileResult
-  }
+public enum HTTPDownloadError: Error {
+  case dataHandlerStub
+  case fileHandlerMissing
+  case fileResultMissing
+}
 
+extension HTTPRequestBuilder where Value == URL {
   public static func download(
     method: HTTPMethod = .get,
     downloadProgress: URLSessionDownloadTask.ProgressHandler? = nil,
@@ -24,13 +26,13 @@ extension HTTPRequestBuilder where Value == URL {
         fileHandler: moveFileToPermanentLocation.move
       ),
       dataHandler: { _ in
-        fatalError("For this request dataHandler should not be called")
+        throw HTTPDownloadError.dataHandlerStub
       }
     )
     return result.with { metadataHandlerWithCleanup, _, _, response in
       try metadataHandlerWithCleanup(response.metadata, response.downloadedFile)
       guard let fileResult = response.downloadedFile else {
-        throw DownloadError.missingFileResult
+        throw HTTPDownloadError.fileResultMissing
       }
       return try fileResult.get()
     }
