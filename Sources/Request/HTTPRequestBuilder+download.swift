@@ -8,7 +8,7 @@
 import Foundation
 
 public enum HTTPDownloadError: Error {
-  case dataHandlerStub
+  case defaultResponseHandlerNotRedefined
   case fileHandlerMissing
   case fileResultMissing
 }
@@ -26,7 +26,7 @@ extension HTTPRequestBuilder where Value == URL {
         fileHandler: moveFileToPermanentLocation.move
       ),
       dataHandler: { _ in
-        throw HTTPDownloadError.dataHandlerStub
+        throw HTTPDownloadError.defaultResponseHandlerNotRedefined
       }
     )
     return result.with { metadataHandlerWithCleanup, _, _, response in
