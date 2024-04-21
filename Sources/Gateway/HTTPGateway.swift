@@ -13,15 +13,18 @@ public final class HTTPGateway: NSObject, Gateway {
 
   private let gatewayOptions: HTTPOptions?
   private nonisolated let proxy = WeakProxy()
+  private let fileRemover: FileRemover
   private var invalidateTask: Task<Void, Error>?
 
   public nonisolated init(
-    configuration: URLSessionConfiguration = URLSessionConfiguration.default,
+    configuration: URLSessionConfiguration = .default,
+    fileRemover: FileRemover = .default,
     options: HTTPOptions? = nil,
     queue: OperationQueue? = nil
   ) {
     self.gatewayOptions = options
     self.session = URLSession(configuration: configuration, delegate: proxy, delegateQueue: queue)
+    self.fileRemover = fileRemover
     super.init()
     proxy.object = self
   }
@@ -95,13 +98,10 @@ extension HTTPGateway: URLSessionTaskDelegate {
       task.allowUntrustedSSLCertificates,
       let serverTrust = challenge.protectionSpace.serverTrust
     else {
-      completionHandler(URLSession.AuthChallengeDisposition.performDefaultHandling, nil)
+      completionHandler(.performDefaultHandling, nil)
       return
     }
-    completionHandler(
-      URLSession.AuthChallengeDisposition.useCredential,
-      URLCredential(trust: serverTrust)
-    )
+    completionHandler(.useCredential, URLCredential(trust: serverTrust))
   }
 
   public func urlSession(
@@ -143,7 +143,7 @@ extension HTTPGateway: URLSessionDataDelegate {
     didReceive response: URLResponse,
     completionHandler: @escaping (URLSession.ResponseDisposition) -> Void
   ) {
-    completionHandler(URLSession.ResponseDisposition.allow)
+    completionHandler(.allow)
   }
 
   public func urlSession(
@@ -170,7 +170,10 @@ extension HTTPGateway: URLSessionDownloadDelegate {
     downloadTask: URLSessionDownloadTask,
     didFinishDownloadingTo location: URL
   ) {
-    downloadTask.downloadCompletionHandler?(location)
+    downloadTask.downloadedFile = downloadTask.fileHandler
+      .map { fileHandler in
+        Result { try fileHandler(location) }
+      } ?? .failure(HTTPDownloadError.fileHandlerMissing)
   }
 
   public func urlSession(
@@ -222,7 +225,7 @@ private extension HTTPGateway {
     let responseTimeout = options?.responseTimeout ?? 30.0
     var urlRequest = URLRequest(
       url: fullURL,
-      cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData,
+      cachePolicy: .reloadIgnoringLocalCacheData,
       timeoutInterval: responseTimeout
     )
     urlRequest.httpMethod = request.method.name
@@ -277,15 +280,14 @@ private extension HTTPGateway {
     _ hostURL: URL,
     _ continuation: CheckedContinuation<HTTPResponse, Error>
   ) {
-    var responseData = Data()
-    sessionTask.dataHandler = { data in
-      responseData.append(data)
-    }
-    sessionTask.completionHandler = { [unowned sessionTask] error in
+    var data = Data()
+    sessionTask.dataHandler = { data.append($0) }
+    sessionTask.completionHandler = { [unowned sessionTask, fileRemover] error in
       let responseURL = sessionTask.originalRequest?.url ?? hostURL
+      let file = (sessionTask as? URLSessionDownloadTask)?.downloadedFile
       if let error {
-        let gatewayError = GatewayError.createGatewayError(error, url: responseURL)
-        continuation.resume(throwing: gatewayError)
+        fileRemover.remove(file: file)
+        continuation.resume(throwing: GatewayError.createGatewayError(error, url: responseURL))
         return
       }
       guard let response = sessionTask.response else {
@@ -297,7 +299,9 @@ private extension HTTPGateway {
         // See more at https://developer.apple.com/documentation/foundation/urlresponse
         preconditionFailure("URLResponse is not HTTPURLResponse")
       }
-      continuation.resume(returning: HTTPResponse(data: responseData, metadata: response))
+      continuation.resume(
+        returning: HTTPResponse(data: data, downloadedFile: file, metadata: response)
+      )
     }
     sessionTask.resume()
   }

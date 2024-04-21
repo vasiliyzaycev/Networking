@@ -31,13 +31,13 @@ extension HTTPTaskFactory {
   }
 
   nonisolated public static func downloadTaskFactory(
-    downloadProgress: ((HTTPRequestProgress) -> Void)? = nil,
-    fileHandler: ((URL) -> Void)?
+    downloadProgress: URLSessionDownloadTask.ProgressHandler? = nil,
+    fileHandler: URLSessionDownloadTask.TempFileHandler?
   ) -> TaskFactory {
     Self { @NetworkingActor urlRequest, gateway in
       let task = gateway.session.downloadTask(with: urlRequest)
       task.downloadProgress = downloadProgress
-      task.downloadCompletionHandler = fileHandler
+      task.fileHandler = fileHandler
       return task
     }
   }

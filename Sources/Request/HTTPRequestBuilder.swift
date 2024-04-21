@@ -1,5 +1,5 @@
 //
-//  RequestBuilder.swift
+//  HTTPRequestBuilder.swift
 //  Networking
 //
 //  Created by Vasiliy Zaycev on 02.09.2021.
@@ -9,6 +9,7 @@ import Foundation
 
 public final class HTTPRequestBuilder<Value> {
   private let method: HTTPMethod
+  private let fileRemover: FileRemover
   private let taskFactory: TaskFactory
   private let dataHandler: HTTPDataHandler<Value>?
   private let optionalDataHandler: HTTPOptionalDataHandler<Value>?
@@ -20,6 +21,7 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
   ) where Value: Decodable {
@@ -30,6 +32,7 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     decoder: ResponseDecoder = JSONDecoder()
   ) where Value: Decodable {
@@ -40,11 +43,13 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory = HTTPTaskFactory.dataTaskFactory(),
     dataHandler: @escaping HTTPDataHandler<Value>
   ) {
     self.init(
       method: method,
+      fileRemover: fileRemover,
       taskFactory: taskFactory,
       dataHandler: dataHandler,
       optionalDataHandler: nil
@@ -53,11 +58,13 @@ public final class HTTPRequestBuilder<Value> {
 
   public convenience init(
     method: HTTPMethod,
+    fileRemover: FileRemover = .default,
     taskFactory: TaskFactory,
     optionalDataHandler: @escaping HTTPOptionalDataHandler<Value>
   ) {
     self.init(
       method: method,
+      fileRemover: fileRemover,
       taskFactory: taskFactory,
       dataHandler: nil,
       optionalDataHandler: optionalDataHandler
@@ -77,11 +84,13 @@ public final class HTTPRequestBuilder<Value> {
 
   private init(
     method: HTTPMethod,
+    fileRemover: FileRemover,
     taskFactory: TaskFactory,
     dataHandler: HTTPDataHandler<Value>?,
     optionalDataHandler: HTTPOptionalDataHandler<Value>?
   ) {
     self.method = method
+    self.fileRemover = fileRemover
     self.taskFactory = taskFactory
     self.dataHandler = dataHandler
     self.optionalDataHandler = optionalDataHandler
@@ -124,31 +133,44 @@ public final class HTTPRequestBuilder<Value> {
 
 public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
 public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
+public typealias HTTPMetadataHandlerWithCleanup = (
+  HTTPURLResponse,
+  HTTPResponse.DownloadedFile?
+) throws -> Void
 public typealias HTTPDataHandler<Value> = (Data) async throws -> Value
 public typealias HTTPOptionalDataHandler<Value> = (Data?) async throws -> Value
-public typealias HTTPCustomResponseHandler<Value> =
-  (HTTPResponseHandler<Value>, HTTPResponse) async throws -> Value
+public typealias HTTPCustomResponseHandler<Value> = (
+  HTTPMetadataHandlerWithCleanup,
+  FileRemover,
+  HTTPResponseHandler<Value>,
+  HTTPResponse
+) async throws -> Value
 
 private extension HTTPRequestBuilder {
   private func createResponseHandler() -> HTTPResponseHandler<Value> {
     let metadataHandler = createMetadataHandler()
-    let dataHandler = self.dataHandler
-    let optionalDataHandler = self.optionalDataHandler
-    let responseHandler: HTTPResponseHandler<Value> = { response in
-      try metadataHandler(response.metadata)
-      if let optionalDataHandler {
-        return try await optionalDataHandler(response.data)
-      } else if let dataHandler {
-        guard let responseData = response.data else {
-          throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
-        }
-        return try await dataHandler(responseData)
+    let metadataHandlerWithCleanup = { [fileRemover] metadata, file in
+      do {
+        try metadataHandler(metadata)
+      } catch {
+        fileRemover.remove(file: file)
+        throw error
       }
-      fatalError("All dataHandlers is nil")
     }
-    guard let customResponseHandler else { return responseHandler }
+    let dataHandler = createDataHandler()
+    if let customResponseHandler {
+      return { [fileRemover] response in
+        try await customResponseHandler(
+          metadataHandlerWithCleanup,
+          fileRemover,
+          dataHandler,
+          response
+        )
+      }
+    }
     return { response in
-      try await customResponseHandler(responseHandler, response)
+      try metadataHandlerWithCleanup(response.metadata, response.downloadedFile)
+      return try await dataHandler(response)
     }
   }
 
@@ -169,6 +191,23 @@ private extension HTTPRequestBuilder {
     guard let customMetadataHandler else { return metadataHandler }
     return { metadata in
       try customMetadataHandler(metadataHandler, metadata)
+    }
+  }
+
+  private func createDataHandler() -> HTTPResponseHandler<Value> {
+    let dataHandler = self.dataHandler
+    let optionalDataHandler = self.optionalDataHandler
+    return { response in
+      if let optionalDataHandler {
+        return try await optionalDataHandler(response.data)
+      }
+      if let dataHandler {
+        guard let responseData = response.data else {
+          throw GatewayError.serverEmptyResponseData(url: response.metadata.url)
+        }
+        return try await dataHandler(responseData)
+      }
+      fatalError("All dataHandlers is nil")
     }
   }
 }

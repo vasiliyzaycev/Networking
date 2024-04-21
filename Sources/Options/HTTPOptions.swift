@@ -19,10 +19,7 @@ public struct HTTPOptions: Sendable {
     self.responseSimulator = responseSimulator
   }
 
-  public static func merge(
-    _ source: HTTPOptions?,
-    with target: HTTPOptions?
-  ) -> HTTPOptions? {
+  public static func merge(_ source: Self?, with target: Self?) -> Self? {
     guard let source = source else { return target }
     return Self(
       requestOptions: .merge(source.requestOptions, with: target?.requestOptions),
@@ -30,17 +27,11 @@ public struct HTTPOptions: Sendable {
     )
   }
 
-  public static func merge(
-    _ source: HTTPOptions?,
-    with target: HTTPRequestOptions?
-  ) -> HTTPOptions? {
+  public static func merge(_ source: Self?, with target: HTTPRequestOptions?) -> Self? {
     merge(source, with: .init(requestOptions: target))
   }
 
-  public static func merge(
-    _ source: HTTPOptions?,
-    with target: ResponseSimulator?
-  ) -> HTTPOptions? {
+  public static func merge(_ source: Self?, with target: ResponseSimulator?) -> Self? {
     merge(source, with: .init(responseSimulator: target))
   }
 }
