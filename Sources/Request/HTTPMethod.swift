@@ -5,9 +5,8 @@
 //  Created by Vasiliy Zaycev on 31.08.2021.
 //
 
-import Foundation
 
-public enum HTTPMethod: Equatable {
+public enum HTTPMethod: Equatable, Sendable {
   case get
   case put
   case post
@@ -17,12 +16,12 @@ public enum HTTPMethod: Equatable {
 
   var name: String {
     switch self {
-    case .get: return "GET"
-    case .put: return "PUT"
-    case .post: return "POST"
-    case .delete: return "DELETE"
-    case .head: return "HEAD"
-    case .custom(let name): return name
+    case .get:              "GET"
+    case .put:              "PUT"
+    case .post:             "POST"
+    case .delete:           "DELETE"
+    case .head:             "HEAD"
+    case .custom(let name): name
     }
   }
 }

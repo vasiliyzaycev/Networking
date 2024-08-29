@@ -5,9 +5,7 @@
 //  Created by Vasiliy Zaycev on 22.08.2021.
 //
 
-import Foundation
-
-public struct HTTPRequest<Value>: Request {
+public struct HTTPRequest<Value>: Request, Sendable {
   public let method: HTTPMethod
   public let options: HTTPRequestOptions?
   public let responseHandler: HTTPResponseHandler<Value>
@@ -27,4 +25,4 @@ public struct HTTPRequest<Value>: Request {
   }
 }
 
-public typealias HTTPResponseHandler<Value> = (HTTPResponse) async throws -> Value
+public typealias HTTPResponseHandler<Value> = @Sendable (HTTPResponse) async throws -> Value

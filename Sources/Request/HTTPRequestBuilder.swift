@@ -131,15 +131,18 @@ public final class HTTPRequestBuilder<Value> {
   }
 }
 
-public typealias HTTPMetadataHandler = (HTTPURLResponse) throws -> Void
-public typealias HTTPCustomMetadataHandler = (HTTPMetadataHandler, HTTPURLResponse) throws -> Void
-public typealias HTTPMetadataHandlerWithCleanup = (
+public typealias HTTPMetadataHandler = @Sendable (HTTPURLResponse) throws -> Void
+public typealias HTTPCustomMetadataHandler = @Sendable (
+  HTTPMetadataHandler,
+  HTTPURLResponse
+) throws -> Void
+public typealias HTTPMetadataHandlerWithCleanup = @Sendable (
   HTTPURLResponse,
   HTTPResponse.DownloadedFile?
 ) throws -> Void
-public typealias HTTPDataHandler<Value> = (Data) async throws -> Value
-public typealias HTTPOptionalDataHandler<Value> = (Data?) async throws -> Value
-public typealias HTTPCustomResponseHandler<Value> = (
+public typealias HTTPDataHandler<Value> = @Sendable (Data) async throws -> Value
+public typealias HTTPOptionalDataHandler<Value> = @Sendable (Data?) async throws -> Value
+public typealias HTTPCustomResponseHandler<Value> = @Sendable (
   HTTPMetadataHandlerWithCleanup,
   FileRemover,
   HTTPResponseHandler<Value>,
@@ -148,15 +151,7 @@ public typealias HTTPCustomResponseHandler<Value> = (
 
 private extension HTTPRequestBuilder {
   private func createResponseHandler() -> HTTPResponseHandler<Value> {
-    let metadataHandler = createMetadataHandler()
-    let metadataHandlerWithCleanup = { [fileRemover] metadata, file in
-      do {
-        try metadataHandler(metadata)
-      } catch {
-        fileRemover.remove(file: file)
-        throw error
-      }
-    }
+    let metadataHandlerWithCleanup = createMetadataHandlerWithCleanup()
     let dataHandler = createDataHandler()
     if let customResponseHandler {
       return { [fileRemover] response in
@@ -171,6 +166,20 @@ private extension HTTPRequestBuilder {
     return { response in
       try metadataHandlerWithCleanup(response.metadata, response.downloadedFile)
       return try await dataHandler(response)
+    }
+  }
+
+  private func createMetadataHandlerWithCleanup() -> @Sendable (
+    HTTPURLResponse,
+    HTTPResponse.DownloadedFile?
+  ) throws -> Void {
+    { [metadataHandler = createMetadataHandler(), fileRemover] metadata, file in
+      do {
+        try metadataHandler(metadata)
+      } catch {
+        fileRemover.remove(file: file)
+        throw error
+      }
     }
   }
 
