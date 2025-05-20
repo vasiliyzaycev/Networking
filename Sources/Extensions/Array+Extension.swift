@@ -22,6 +22,7 @@ private extension String {
   var urlEncoded: String? {
     var allowedCharacters = CharacterSet.urlQueryAllowed
     allowedCharacters.remove("+")
+    allowedCharacters.remove("&")
     return self.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
   }
 }
