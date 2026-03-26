@@ -13,4 +13,14 @@ public struct HTTPResponse: Sendable {
   public let data: Data?
   public let downloadedFile: DownloadedFile?
   public let metadata: HTTPURLResponse
+
+  public init(
+    data: Data?,
+    downloadedFile: DownloadedFile? = nil,
+    metadata: HTTPURLResponse
+  ) {
+    self.data = data
+    self.downloadedFile = downloadedFile
+    self.metadata = metadata
+  }
 }

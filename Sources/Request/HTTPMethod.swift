@@ -5,7 +5,6 @@
 //  Created by Vasiliy Zaycev on 31.08.2021.
 //
 
-
 public enum HTTPMethod: Equatable, Sendable {
   case get
   case put
